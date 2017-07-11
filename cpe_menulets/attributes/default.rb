@@ -11,4 +11,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-default['cpe_menulets'] = []
+default['cpe_menulets'] = {
+  'menuExtras' => nil,
+}

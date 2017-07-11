@@ -14,14 +14,16 @@
 resource_name :cpe_menulets
 default_action :run
 
-ml_prefs = {}
-
 action :run do
-  ml_prefs = node['cpe_menulets'].reject { nil? }
-  return if ml_prefs.empty?
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  ml_prefs = node['cpe_menulets'].reject { |_k, v| v.nil? }
+  if ml_prefs.empty?
+    Chef::Log.info("#{cookbook_name}: No prefs found.")
+    return
+  end
+
   prefix = node['cpe_profiles']['prefix']
-  node.default['cpe_profiles']["#{prefix}.menulet"] = {
+  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  ml_profile = {
     'PayloadIdentifier' => "#{prefix}.menulet",
     'PayloadRemovalDisallowed' => true,
     'PayloadScope' => 'System',
@@ -30,26 +32,22 @@ action :run do
     'PayloadOrganization' => organization,
     'PayloadVersion' => 1,
     'PayloadDisplayName' => 'Menulet',
-    'PayloadContent' => [
-      {
-        'PayloadType' => 'com.apple.ManagedClient.preferences',
-        'PayloadVersion' => 1,
-        'PayloadIdentifier' => "#{prefix}.menulet",
-        'PayloadUUID' => '37F77492-E026-423F-8F7B-567CC06A7585',
-        'PayloadEnabled' => true,
-        'PayloadDisplayName' => 'Menulet',
-        'PayloadContent' => {
-          'com.apple.systemuiserver' => {
-            'Forced' => [
-              {
-                'mcx_preference_settings' => {
-                  'menuExtras' => ml_prefs,
-                },
-              },
-            ],
-          },
-        },
-      },
-    ],
+    'PayloadContent' => [],
   }
+  unless ml_prefs.empty?
+    ml_profile['PayloadContent'].push(
+      'PayloadType' => 'com.apple.systemuiserver',
+      'PayloadVersion' => 1,
+      'PayloadIdentifier' => "#{prefix}.menulet",
+      'PayloadUUID' => '37F77492-E026-423F-8F7B-567CC06A7585',
+      'PayloadEnabled' => true,
+      'PayloadDisplayName' => 'Menulet',
+    )
+    ml_prefs.keys.each do |key|
+      next if ml_prefs[key].nil?
+      ml_profile['PayloadContent'][0][key] = ml_prefs[key]
+    end
+  end
+
+  node.default['cpe_profiles']["#{prefix}.menulet"] = ml_profile
 end
