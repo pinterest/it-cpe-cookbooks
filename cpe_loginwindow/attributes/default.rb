@@ -11,4 +11,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-default['cpe_loginwindow']['LoginwindowText'] = nil
+default['cpe_loginwindow'] = {
+  'LoginwindowText' => nil,
+}
