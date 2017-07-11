@@ -14,14 +14,16 @@
 resource_name :cpe_globalpreferences
 default_action :run
 
-gp_prefs = {}
-
 action :run do
-  gp_prefs = node['cpe_globalpreferences'].reject { |_k, v| v.nil? }
-  return if gp_prefs.empty?
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  gp_prefs = node['cpe_ard'].reject { |_k, v| v.nil? }
+  if gp_prefs.empty?
+    Chef::Log.info("#{cookbook_name}: No prefs found.")
+    return
+  end
+
   prefix = node['cpe_profiles']['prefix']
-  node.default['cpe_profiles']["#{prefix}.globalpreferences"] = {
+  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  gp_profile = {
     'PayloadIdentifier' => "#{prefix}.globalpreferences",
     'PayloadRemovalDisallowed' => true,
     'PayloadScope' => 'System',
@@ -30,24 +32,22 @@ action :run do
     'PayloadOrganization' => organization,
     'PayloadVersion' => 1,
     'PayloadDisplayName' => 'Global Preferences',
-    'PayloadContent' => [
-      {
-        'PayloadType' => 'com.apple.ManagedClient.preferences',
-        'PayloadVersion' => 1,
-        'PayloadIdentifier' => "#{prefix}.globalpreferences",
-        'PayloadUUID' => '97DD1F38-93EE-49C8-9ECD-B2C2EA29E77F',
-        'PayloadEnabled' => true,
-        'PayloadDisplayName' => 'Global Preferences',
-        'PayloadContent' => {
-          '.GlobalPreferences' => {
-            'Forced' => [
-              {
-                'mcx_preference_settings' => gp_prefs,
-              },
-            ],
-          },
-        },
-      },
-    ],
+    'PayloadContent' => [],
   }
+  unless gp_prefs.empty?
+    gp_profile['PayloadContent'].push(
+      'PayloadType' => 'com.apple.RemoteManagement',
+      'PayloadVersion' => 1,
+      'PayloadIdentifier' => "#{prefix}.globalpreferences",
+      'PayloadUUID' => '97DD1F38-93EE-49C8-9ECD-B2C2EA29E77F',
+      'PayloadEnabled' => true,
+      'PayloadDisplayName' => 'Global Preferences',
+    )
+    gp_prefs.keys.each do |key|
+      next if gp_prefs[key].nil?
+      gp_profile['PayloadContent'][0][key] = gp_prefs[key]
+    end
+  end
+
+  node.default['cpe_profiles']["#{prefix}.globalpreferences"] = gp_profile
 end

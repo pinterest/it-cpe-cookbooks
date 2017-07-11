@@ -11,5 +11,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-default['cpe_globalpreferences']['MultipleSessionEnabled'] = nil
-default['cpe_globalpreferences']['NSQuitAlwaysKeepsWindows'] = nil
+default['cpe_globalpreferences'] = {
+  'MultipleSessionEnabled' => nil,
+  'NSQuitAlwaysKeepsWindows' => nil,
+}
