@@ -14,14 +14,17 @@
 resource_name :cpe_ard
 default_action :run
 
-ard_prefs = {}
-
+# Enforce Apple Remote Desktop (Application) settings
 action :run do
   ard_prefs = node['cpe_ard'].reject { |_k, v| v.nil? }
-  return if ard_prefs.empty?
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  if ard_prefs.empty?
+    Chef::Log.info("#{cookbook_name}: No prefs found.")
+    return
+  end
+
   prefix = node['cpe_profiles']['prefix']
-  node.default['cpe_profiles']["#{prefix}.ard"] = {
+  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  ard_profile = {
     'PayloadIdentifier' => "#{prefix}.ardapp",
     'PayloadRemovalDisallowed' => true,
     'PayloadScope' => 'System',
@@ -30,24 +33,22 @@ action :run do
     'PayloadOrganization' => organization,
     'PayloadVersion' => 1,
     'PayloadDisplayName' => 'Apple Remote Desktop Application',
-    'PayloadContent' => [
-      {
-        'PayloadType' => 'com.apple.ManagedClient.preferences',
-        'PayloadVersion' => 1,
-        'PayloadIdentifier' => "#{prefix}.ard",
-        'PayloadUUID' => '149EAD29-D27D-4639-8E8D-D8513B18A2B5',
-        'PayloadEnabled' => true,
-        'PayloadDisplayName' => 'RemoteManagement',
-        'PayloadContent' => {
-          'com.apple.RemoteManagement' => {
-            'Forced' => [
-              {
-                'mcx_preference_settings' => ard_prefs,
-              },
-            ],
-          },
-        },
-      },
-    ],
+    'PayloadContent' => [],
   }
+  unless ard_prefs.empty?
+    ard_profile['PayloadContent'].push(
+      'PayloadType' => 'com.apple.RemoteManagement',
+      'PayloadVersion' => 1,
+      'PayloadIdentifier' => "#{prefix}.ardapp",
+      'PayloadUUID' => '149EAD29-D27D-4639-8E8D-D8513B18A2B5',
+      'PayloadEnabled' => true,
+      'PayloadDisplayName' => 'Apple Remote Desktop Application',
+    )
+    ard_prefs.keys.each do |key|
+      next if ard_prefs[key].nil?
+      ard_profile['PayloadContent'][0][key] = ard_prefs[key]
+    end
+  end
+
+  node.default['cpe_profiles']["#{prefix}.ard"] = ard_profile
 end
