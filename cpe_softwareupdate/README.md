@@ -20,6 +20,7 @@ whichever prefix is set in node['cpe_profiles']['prefix'], which defaults to `co
 The profile delivers a payload for the above keys in `node['cpe_softwareupdate']`.  The three provided have a sane default, which can be overridden in another recipe if desired.
 
 For example, you could tweak the above values
+
     # Allow beta access
     node.default['cpe_softwareupdate']['AllowPreReleaseInstallation'] = true
     # Use internal SUS
