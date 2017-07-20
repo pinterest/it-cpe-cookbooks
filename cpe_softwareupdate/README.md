@@ -6,8 +6,10 @@ Install a profile to manage softwareupdate settings.
 Attributes
 ----------
 * node['cpe_softwareupdate']
-* node['cpe_softwareupdate']['AllowPreReleaseInstallation']
-* node['cpe_softwareupdate']['CatalogURL']
+* node['cpe_softwareupdate']['commerce']['AutoUpdate']
+* node['cpe_softwareupdate']['commerce']['AutoUpdateRestartRequired']
+* node['cpe_softwareupdate']['su']['AllowPreReleaseInstallation']
+* node['cpe_softwareupdate']['su']['CatalogURL']
 
 Usage
 -----
@@ -21,7 +23,11 @@ The profile delivers a payload for the above keys in `node['cpe_softwareupdate']
 
 For example, you could tweak the above values
 
+    # Disable Auto Update from App Store
+    node.default['cpe_softwareupdate']['commerce']['AutoUpdate'] = false
+    # Disable Auto Update of delta/combo updates from App Store
+    node.default['cpe_softwareupdate']['commerce']['AutoUpdateRestartRequired']
     # Allow beta access
-    node.default['cpe_softwareupdate']['AllowPreReleaseInstallation'] = true
+    node.default['cpe_softwareupdate']['su']['AllowPreReleaseInstallation'] = true
     # Use internal SUS
-    node.default['cpe_softwareupdate']['CatalogURL'] = 'https://sus.domain.tld'
+    node.default['cpe_softwareupdate']['su']['CatalogURL'] = 'https://sus.domain.tld'
