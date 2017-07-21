@@ -65,6 +65,11 @@ action :run do
     suc_prefs.keys.each do |key|
       next if suc_prefs[key].nil?
       su_profile['PayloadContent'][-1][key] = suc_prefs[key]
+      mac_os_x_userdefaults "Configure com.apple.commerce - #{key}" do
+        domain '/Library/Preferences/com.apple.commerce'
+        key key
+        value suc_prefs[key]
+      end
     end
   end
 
