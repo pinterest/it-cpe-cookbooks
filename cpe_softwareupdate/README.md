@@ -8,11 +8,11 @@ Attributes
 * node['cpe_softwareupdate']['commerce']['AutoUpdate']
 * node['cpe_softwareupdate']['commerce']['AutoUpdateRestartRequired']
 * node['cpe_softwareupdate']['su']['AllowPreReleaseInstallation']
-* node['cpe_softwareupdate']['su']['AutomaticCheckEnabled'] = true
-* node['cpe_softwareupdate']['su']['AutomaticDownload'] = true
+* node['cpe_softwareupdate']['su']['AutomaticCheckEnabled']
+* node['cpe_softwareupdate']['su']['AutomaticDownload']
 * node['cpe_softwareupdate']['su']['CatalogURL']
-* node['cpe_softwareupdate']['su']['ConfigDataInstall'] = true
-* node['cpe_softwareupdate']['su']['CriticalUpdateInstall'] = true
+* node['cpe_softwareupdate']['su']['ConfigDataInstall']
+* node['cpe_softwareupdate']['su']['CriticalUpdateInstall']
 
 Usage
 -----
