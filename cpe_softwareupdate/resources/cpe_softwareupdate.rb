@@ -11,6 +11,8 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+return unless node.macos?
+
 resource_name :cpe_softwareupdate
 default_action :run
 
