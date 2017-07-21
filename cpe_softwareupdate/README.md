@@ -2,14 +2,17 @@ cpe_softwareupdate Cookbook
 ========================
 Install a profile to manage softwareupdate settings.
 
-
 Attributes
 ----------
 * node['cpe_softwareupdate']
 * node['cpe_softwareupdate']['commerce']['AutoUpdate']
 * node['cpe_softwareupdate']['commerce']['AutoUpdateRestartRequired']
 * node['cpe_softwareupdate']['su']['AllowPreReleaseInstallation']
+* node['cpe_softwareupdate']['su']['AutomaticCheckEnabled'] = true
+* node['cpe_softwareupdate']['su']['AutomaticDownload'] = true
 * node['cpe_softwareupdate']['su']['CatalogURL']
+* node['cpe_softwareupdate']['su']['ConfigDataInstall'] = true
+* node['cpe_softwareupdate']['su']['CriticalUpdateInstall'] = true
 
 Usage
 -----
@@ -23,11 +26,19 @@ The profile delivers a payload for the above keys in `node['cpe_softwareupdate']
 
 For example, you could tweak the above values
 
-    # Disable Auto Update from App Store
-    node.default['cpe_softwareupdate']['commerce']['AutoUpdate'] = false
-    # Disable Auto Update of delta/combo updates from App Store
-    node.default['cpe_softwareupdate']['commerce']['AutoUpdateRestartRequired']
+    # Enable Auto Update from App Store (Not reflected in UI)
+    node.default['cpe_softwareupdate']['commerce']['AutoUpdate'] = true
+    # Enabled Auto Update of delta/combo updates from App Store (Not reflected in UI)
+    node.default['cpe_softwareupdate']['commerce']['AutoUpdateRestartRequired'] = true
     # Allow beta access
     node.default['cpe_softwareupdate']['su']['AllowPreReleaseInstallation'] = true
+    # Automatically check for updates
+    node.default['cpe_softwareupdate']['su']['AutomaticCheckEnabled'] = true
+    # Download newly available updates in the background
+    node.default['cpe_softwareupdate']['su']['AutomaticDownload'] = true
     # Use internal SUS
     node.default['cpe_softwareupdate']['su']['CatalogURL'] = 'https://sus.domain.tld'
+    # Download system data files
+    node.default['cpe_softwareupdate']['su']['ConfigDataInstall'] = true
+    # Download security updates
+    node.default['cpe_softwareupdate']['su']['CriticalUpdateInstall'] = true
