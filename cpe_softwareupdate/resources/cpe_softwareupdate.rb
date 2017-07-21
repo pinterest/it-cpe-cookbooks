@@ -60,7 +60,6 @@ action :run do
       'PayloadUUID' => 'EA6ABD99-B904-4A36-A312-349AF97E1D4D',
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'SoftwareUpdate (Commerce)',
-      'familyControlsEnabled' => true,
     )
 
     suc_prefs.keys.each do |key|
