@@ -2,6 +2,10 @@ cpe_softwareupdate Cookbook
 ========================
 Install a profile to manage softwareupdate settings.
 
+Requirements
+----------
+This cookbook requires the [mac_os_x](https://supermarket.chef.io/cookbooks/mac_os_x) cookbook.
+
 Attributes
 ----------
 * node['cpe_softwareupdate']
