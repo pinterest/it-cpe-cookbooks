@@ -20,6 +20,10 @@ default['cpe_softwareupdate'] = {
   # SoftwareUpdate
   'su' => {
     'AllowPreReleaseInstallation' => nil,
+    'AutomaticCheckEnabled' => nil,
+    'AutomaticDownload' => nil,
     'CatalogURL' => nil,
+    'ConfigDataInstall' => nil,
+    'CriticalUpdateInstall' => nil,
   },
 }
