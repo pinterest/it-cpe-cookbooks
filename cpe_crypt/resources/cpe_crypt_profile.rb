@@ -16,8 +16,9 @@ default_action :config
 
 action :config do
   return unless node['cpe_crypt']['install']
+  return unless node['cpe_crypt']['profile']
 
-  crypt_prefs = node['cpe_crypt']['preferences'].reject { |_k, v| v.nil? }
+  crypt_prefs = node['cpe_crypt']['prefs'].reject { |_k, v| v.nil? }
   if crypt_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

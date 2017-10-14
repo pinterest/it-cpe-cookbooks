@@ -7,11 +7,15 @@ Attributes
 ----------
 * node['cpe_crypt']
 * node['cpe_crypt']['install']
-* node['cpe_crypt']['package']
-* node['cpe_crypt']['preferences']['ServerURL']
-* node['cpe_crypt']['preferences']['SkipUsers']
-* node['cpe_crypt']['preferences']['RemovePlist']
-* node['cpe_crypt']['preferences']['RotateUsedKey']
+* node['cpe_crypt']['uninstall']
+* node['cpe_crypt']['profile']
+* node['cpe_crypt']['manage_authdb']
+* node['cpe_crypt']['manage_ld']
+* node['cpe_crypt']['pkgs']
+* node['cpe_crypt']['prefs']['ServerURL']
+* node['cpe_crypt']['prefs']['SkipUsers']
+* node['cpe_crypt']['prefs']['RemovePlist']
+* node['cpe_crypt']['prefs']['RotateUsedKey']
 
 Notes
 -----
@@ -45,18 +49,18 @@ The profile delivers a payload for the above keys in `node['cpe_crypt']`.  The t
 For example, you could tweak the above values
 
     node.default['cpe_crypt']['install'] = true
-    node.default['cpe_crypt']['preferences']['ServerURL'] =
+    node.default['cpe_crypt']['prefs']['ServerURL'] =
       'https://crypt.somewhere.com'
-    node.default['cpe_crypt']['preferences']['SkipUsers'] = [
+    node.default['cpe_crypt']['prefs']['SkipUsers'] = [
       'supersecretadmin',
       'noreallysupersecretadmin'
     ]
-    node.default['cpe_crypt']['preferences']['RemovePlist'] = false
-    node.default['cpe_crypt']['preferences']['RotateUsedKey'] = false
-    node.default['cpe_crypt']['package'] = {
+    node.default['cpe_crypt']['prefs']['RemovePlist'] = false
+    node.default['cpe_crypt']['prefs']['RotateUsedKey'] = false
+    node.default['cpe_crypt']['pkg'] = {
       'app' => 'crypt',
       'checksum' =>
         '1582e974820a5b27cfe462521cb0d4802319224753f3d6417ee23fff9333872a',
-      'receipt' => 'com.grahamgilbert.Crypt',
+      'receipt' => 'com.grahamgilbert.crypt',
       'version' => '3.0.0.109',
     }
