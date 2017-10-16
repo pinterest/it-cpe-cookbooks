@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cpe_crypt
-# Resources:: cpe_crypt_files
+# Resources:: cpe_crypt_ld
 #
 # vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
@@ -11,11 +11,13 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-resource_name :cpe_crypt_files
-default_action :run
+resource_name :cpe_crypt_ld
+provides :cpe_crypt_ld, :os => 'darwin'
+default_action :manage
 
-action :run do
+action :manage do
   return unless node['cpe_crypt']['install']
+  return unless node['cpe_crypt']['manage_ld']
 
   # Manage Crypt checkin script and folder
   remote_directory '/Library/Crypt' do
@@ -28,16 +30,6 @@ action :run do
   end
 
   # Launch Daemon
-  node.default['cpe_launchd']['crypt'] = {
-    'program_arguments' => ['/Library/Crypt/checkin'],
-    'disabled' => false,
-    'run_at_load' => true,
-    'start_interval' => 120,
-    'type' => 'daemon',
-  }
-
-  # Delete default Crypt LaunchDaemon
-  launchd 'com.grahamgilbert.crypt' do
-    action :delete
-  end
+  node.default['cpe_launchd']['com.grahamgilbert.crypt'] =
+    node.default['cpe_crypt']['ld']
 end

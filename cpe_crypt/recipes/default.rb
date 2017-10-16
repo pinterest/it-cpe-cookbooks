@@ -13,8 +13,7 @@
 
 return unless node.macos?
 
-cpe_crypt_authdb 'Apply Crypt authorization db settings'
-cpe_crypt_profile 'Apply Crypt profile'
 cpe_crypt_install 'Install Crypt package'
-cpe_crypt_files 'Manage Crypt files'
-cpe_crypt_uninstall 'Uninstall Crypt and remove authorization db settings'
+cpe_crypt_profile 'Apply Crypt profile'
+cpe_crypt_authdb 'Manage Crypt authorization db settings'
+cpe_crypt_ld 'Manage Crypt LaunchDaemon'
