@@ -61,6 +61,6 @@ For example, you could tweak the above values
       'app' => 'crypt',
       'checksum' =>
         '1582e974820a5b27cfe462521cb0d4802319224753f3d6417ee23fff9333872a',
-      'receipt' => 'com.grahamgilbert.crypt',
+      'receipt' => 'com.grahamgilbert.Crypt',
       'version' => '3.0.0.109',
     }
