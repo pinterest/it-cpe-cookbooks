@@ -14,7 +14,7 @@ provides :cpe_crypt_install, :os => 'darwin'
 default_action :manage
 
 action :manage do
-  vaildate_install
+  validate_install
   install if install? && !uninstall?
   remove if uninstall?
 end
