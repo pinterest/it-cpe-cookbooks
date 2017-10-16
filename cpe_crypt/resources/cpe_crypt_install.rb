@@ -14,7 +14,7 @@ provides :cpe_crypt_install, :os => 'darwin'
 default_action :manage
 
 action :manage do
-  vaildate_install
+  validate_install
   install if install? && !uninstall?
   remove if uninstall?
 end
@@ -45,7 +45,7 @@ action_class do
     ::File.exist?(crypt_path)
   end
 
-  def vaildate_install
+  def validate_install
     forget_crypt_pkg if install? && !crypt_installed?
   end
 
