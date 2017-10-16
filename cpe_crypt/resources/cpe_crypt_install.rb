@@ -45,7 +45,7 @@ action_class do
     ::File.exist?(crypt_path)
   end
 
-  def vaildate_install
+  def validate_install
     forget_crypt_pkg if install? && !crypt_installed?
   end
 
