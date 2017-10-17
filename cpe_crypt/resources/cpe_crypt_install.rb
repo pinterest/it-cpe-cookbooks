@@ -39,7 +39,6 @@ action_class do
   end
 
   def crypt_installed?
-    Chef::Log.warn('Crypt binary not installed!')
     crypt_path =
       '/Library/Security/SecurityAgentPlugins/Crypt.bundle/Contents/MacOS/Crypt'
     ::File.exist?(crypt_path)
