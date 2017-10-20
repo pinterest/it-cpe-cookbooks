@@ -25,7 +25,7 @@ action :manage do
   # First, validate whether or not the current settings are correct
   # Get current settings from authdb
   if crypt_currently_in_authdb && !uninstall?
-    log('Authdb already configured for Crypt')
+    Chef::Log.debug('Authdb already configured for Crypt')
     return
   end
   manage_crypt_authorizationdb
