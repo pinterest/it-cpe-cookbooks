@@ -1,6 +1,8 @@
 #
 # Cookbook Name:: cpe_crypt
-# Resource:: cpe_crypt_install
+# Resources:: cpe_crypt_install
+#
+# vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
 # Copyright (c) 2017-present, Pinterest, Inc.
 # All rights reserved.

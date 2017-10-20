@@ -1,6 +1,8 @@
 #
 # Cookbook Name:: cpe_crypt
-# Resource:: cpe_crypt_authdb
+# Resources:: cpe_crypt_authdb
+#
+# vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
 # Copyright (c) 2017-present, Pinterest, Inc.
 # All rights reserved.
@@ -8,8 +10,6 @@
 # This source code is licensed under the Apache 2.0 license found in the
 # LICENSE file in the root directory of this source tree.
 #
-# TODO: This entire resource needs to be re-written with via the following
-# method https://github.com/macadmins/puppet-authpluginmech
 
 resource_name :cpe_crypt_authdb
 provides :cpe_crypt_authdb, :os => 'darwin'

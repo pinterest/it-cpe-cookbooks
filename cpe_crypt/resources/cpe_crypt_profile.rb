@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cpe_crypt
-# Resources:: cpe_crypt_profiles
+# Resources:: cpe_crypt_profile
 #
 # vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
