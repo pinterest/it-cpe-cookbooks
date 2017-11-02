@@ -26,6 +26,7 @@ action :manage do
     group 'wheel'
     mode '0755'
     files_mode '0755'
+    purge true
     action :create
   end
 
