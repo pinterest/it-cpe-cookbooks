@@ -14,6 +14,7 @@ Attributes
 * node['cpe_helloit']['profile']
 * node['cpe_helloit']['manage_la']
 * node['cpe_helloit']['pkgs']
+* node['cpe_helloit']['prefs']
 * node['cpe_helloit']['prefs']['content']
 
 Notes
@@ -45,7 +46,8 @@ The profile delivers a payload for the above keys in `node['cpe_helloit']`.  The
 
 For example, you could tweak the below values
 
-    node.default['cpe_helloit']['content'] = [
+    node.default['cpe_helloit']['prefs']['allowSubdomains'] = true
+    node.default['cpe_helloit']['prefs']['content'] = [
       {
         'functionIdentifier' => 'public.title',
         'settings' = {
