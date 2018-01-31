@@ -12,8 +12,11 @@
 #
 
 # Disable iCloud and SetupAssistant
-default['cpe_setupassistant']['DidSeeCloudSetup'] = nil
-default['cpe_setupassistant']['DidSeeSiriSetup'] = nil
-default['cpe_setupassistant']['LastSeenBuddyBuildVersion'] = nil
-default['cpe_setupassistant']['LastSeenCloudProductVersion'] = nil
-default['cpe_setupassistant']['RunNonInteractive'] = nil
+
+default['cpe_setupassistant']['once']['DidSeeCloudSetup'] = nil
+default['cpe_setupassistant']['once']['DidSeeSiriSetup'] = nil
+default['cpe_setupassistant']['once']['LastSeenBuddyBuildVersion'] = nil
+default['cpe_setupassistant']['once']['LastSeenCloudProductVersion'] = nil
+default['cpe_setupassistant']['once']['RunNonInteractive'] = nil
+
+default['cpe_setupassistant']['managed']['SkipCloudSetup'] = nil
