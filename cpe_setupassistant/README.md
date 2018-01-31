@@ -14,6 +14,9 @@ Attributes
 * node['cpe_setupassistant']['once']['LastSeenCloudProductVersion']
 * node['cpe_setupassistant']['once']['RunNonInteractive']
 * node['cpe_setupassistant']['managed']['SkipCloudSetup']
+* node['cpe_setupassistant']['managed']['SkipSiriSetup']
+* node['cpe_setupassistant']['managed']['SkipPrivacySetup']
+* node['cpe_setupassistant']['managed']['SkipiCloudStorageSetup']
 
 Usage
 -----
@@ -43,5 +46,10 @@ The most common use case is for client machines that you want SetupAssistant to 
       node['platform_version']
     node.default['cpe_setupassistant']['once']['RunNonInteractive'] = true
 
-    # Disable SetupAssistant. Only works on 10.10+
+    # Skip iCloud setup screen. Only works on 10.10+
     node.default['cpe_setupassistant']['managed']['SkipCloudSetup'] = true
+
+    # Skip other setup screens. Only works on 10.13.4
+    node.default['cpe_setupassistant']['managed']['SkipSiriSetup'] = true
+    node.default['cpe_setupassistant']['managed']['SkipPrivacySetup'] = true
+    node.default['cpe_setupassistant']['managed']['SkipiCloudStorageSetup'] = true

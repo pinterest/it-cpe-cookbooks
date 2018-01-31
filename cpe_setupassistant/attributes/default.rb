@@ -20,3 +20,6 @@ default['cpe_setupassistant']['once']['LastSeenCloudProductVersion'] = nil
 default['cpe_setupassistant']['once']['RunNonInteractive'] = nil
 
 default['cpe_setupassistant']['managed']['SkipCloudSetup'] = nil
+default['cpe_setupassistant']['managed']['SkipSiriSetup'] = nil
+default['cpe_setupassistant']['managed']['SkipPrivacySetup'] = nil
+default['cpe_setupassistant']['managed']['SkipiCloudStorageSetup'] = nil
