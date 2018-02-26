@@ -14,41 +14,81 @@
 resource_name :cpe_setupassistant
 default_action :run
 
-sa_prefs = {}
-
 action :run do
-  sa_prefs = node['cpe_setupassistant'].reject { |_k, v| v.nil? }
-  unless sa_prefs.empty?
-    organization = node['organization'] ? node['organization'] : 'Pinterest'
-    prefix = node['cpe_profiles']['prefix']
-    node.default['cpe_profiles']["#{prefix}.setupassistant"] = {
-      'PayloadIdentifier' => "#{prefix}.setupassistant",
-      'PayloadRemovalDisallowed' => true,
-      'PayloadScope' => 'System',
-      'PayloadType' => 'Configuration',
-      'PayloadUUID' => '552E2A87-2B97-4626-AAE1-DF2113960074',
-      'PayloadOrganization' => organization,
-      'PayloadVersion' => 1,
-      'PayloadDisplayName' => 'SetupAssistant',
-      'PayloadContent' => [
-        {
-          'PayloadType' => 'com.apple.ManagedClient.preferences',
-          'PayloadVersion' => 1,
-          'PayloadIdentifier' => "#{prefix}.setupassistant",
-          'PayloadUUID' => '4CB98425-1FA5-46FE-B68C-DCDA1C7A6960',
-          'PayloadEnabled' => true,
-          'PayloadDisplayName' => 'SetupAssistant',
-          'PayloadContent' => {
-            'com.apple.SetupAssistant' => {
-              'Set-Once' => [
-                {
-                  'mcx_preference_settings' => sa_prefs,
-                },
-              ],
-            },
+  saonce_prefs = node['cpe_setupassistant']['once'].reject { |_k, v| v.nil? }
+  sam_prefs = node['cpe_setupassistant']['managed'].reject { |_k, v| v.nil? }
+  if saonce_prefs.empty? && samanaged_prefs.empty?
+    Chef::Log.info("#{cookbook_name}: No prefs found.")
+    return
+  end
+
+  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  prefix = node['cpe_profiles']['prefix']
+  sa_profile = {
+    'PayloadIdentifier' => "#{prefix}.setupassistant",
+    'PayloadRemovalDisallowed' => true,
+    'PayloadScope' => 'System',
+    'PayloadType' => 'Configuration',
+    'PayloadUUID' => '552E2A87-2B97-4626-AAE1-DF2113960074',
+    'PayloadOrganization' => organization,
+    'PayloadVersion' => 1,
+    'PayloadDisplayName' => 'SetupAssistant',
+    'PayloadContent' => [],
+  }
+  unless saonce_prefs.empty?
+    sa_profile['PayloadContent'].push(
+      {
+        'PayloadType' => 'com.apple.ManagedClient.preferences',
+        'PayloadVersion' => 1,
+        'PayloadIdentifier' => "#{prefix}.setupassistant.once",
+        'PayloadUUID' => '4CB98425-1FA5-46FE-B68C-DCDA1C7A6960',
+        'PayloadEnabled' => true,
+        'PayloadDisplayName' => 'SetupAssistant (Once)',
+        'PayloadContent' => {
+          'com.apple.SetupAssistant' => {
+            'Set-Once' => [
+              {
+                'mcx_preference_settings' => saonce_prefs,
+              },
+            ],
           },
         },
-      ],
-    }
+      },
+    )
   end
+
+  node.default['cpe_profiles']["#{prefix}.setupassistant"] = sa_profile
+
+  if sam_prefs.empty?
+    Chef::Log.info("#{cookbook_name}: No prefs found.")
+    return
+  end
+
+  sam_profile = {
+    'PayloadIdentifier' => "#{prefix}.setupassistant.managed",
+    'PayloadRemovalDisallowed' => true,
+    'PayloadScope' => 'System',
+    'PayloadType' => 'Configuration',
+    'PayloadUUID' => '4616f49c-5a67-4fb5-a3e5-c6855be7f8ba',
+    'PayloadOrganization' => organization,
+    'PayloadVersion' => 1,
+    'PayloadDisplayName' => 'SetupAssistant',
+    'PayloadContent' => [],
+  }
+  unless sam_prefs.empty?
+    sam_profile['PayloadContent'].push(
+      'PayloadType' => 'com.apple.SetupAssistant.managed',
+      'PayloadVersion' => 1,
+      'PayloadIdentifier' => "#{prefix}.setupassistant.managed",
+      'PayloadUUID' => 'e7350af3-e683-4329-8eb0-11bd960d9fff',
+      'PayloadEnabled' => true,
+      'PayloadDisplayName' => 'SetupAssistant (Managed)',
+    )
+    sam_prefs.keys.each do |key|
+      next if sam_prefs[key].nil?
+      sam_profile['PayloadContent'][0][key] = sam_prefs[key]
+    end
+  end
+
+  node.default['cpe_profiles']["#{prefix}.setupassistant.managed"] = sam_profile
 end
