@@ -15,7 +15,7 @@ resource_name :cpe_globalpreferences
 default_action :run
 
 action :run do
-  gp_prefs = node['cpe_ard'].reject { |_k, v| v.nil? }
+  gp_prefs = node['cpe_globalpreferences'].reject { |_k, v| v.nil? }
   if gp_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return
@@ -36,7 +36,7 @@ action :run do
   }
   unless gp_prefs.empty?
     gp_profile['PayloadContent'].push(
-      'PayloadType' => 'com.apple.RemoteManagement',
+      'PayloadType' => '.GlobalPreferences',
       'PayloadVersion' => 1,
       'PayloadIdentifier' => "#{prefix}.globalpreferences",
       'PayloadUUID' => '97DD1F38-93EE-49C8-9ECD-B2C2EA29E77F',
