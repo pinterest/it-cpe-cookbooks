@@ -16,14 +16,16 @@ default_action :run
 
 # Enforce Time Machine settings
 action :run do
-  tm_prefs = node['cpe_timemachine'].reject { |_k, v| v.nil? }
-  if tm_prefs.empty?
+  tm_mcx_prefs = node['cpe_timemachine']['mcx'].reject { |_k, v| v.nil? }
+  tm_std_prefs = node['cpe_timemachine']['std'].reject { |_k, v| v.nil? }
+  if tm_mcx_prefs.empty? && tm_std_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return
   end
 
   prefix = node['cpe_profiles']['prefix']
   organization = node['organization'] ? node['organization'] : 'Pinterest'
+
   tm_profile = {
     'PayloadIdentifier' => "#{prefix}.timemachine",
     'PayloadRemovalDisallowed' => true,
@@ -35,18 +37,37 @@ action :run do
     'PayloadDisplayName' => 'Time Machine',
     'PayloadContent' => [],
   }
-  unless tm_prefs.empty?
+
+  unless tm_mcx_prefs.empty?
     tm_profile['PayloadContent'].push(
       'PayloadType' => 'com.apple.MCX.TimeMachine',
       'PayloadVersion' => 1,
-      'PayloadIdentifier' => "#{prefix}.timemachine",
+      'PayloadIdentifier' => "#{prefix}.timemachine.mcx",
       'PayloadUUID' => '6BBA1688-149A-4623-AD11-2C9BFBD8F2B6',
       'PayloadEnabled' => true,
-      'PayloadDisplayName' => 'Time Machine',
+      'PayloadDisplayName' => 'Time Machine MC X',
     )
-    tm_prefs.keys.each do |key|
-      next if tm_prefs[key].nil?
-      tm_profile['PayloadContent'][0][key] = tm_prefs[key]
+
+    tm_mcx_prefs.keys.each do |key|
+      next if tm_mcx_prefs[key].nil?
+      tm_profile['PayloadContent'][0][key] = tm_mcx_prefs[key]
+    end
+  end
+
+  unless tm_std_prefs.empty?
+    tm_profile['PayloadContent'].push(
+      'PayloadType' => 'com.apple.TimeMachine',
+      'PayloadVersion' => 1,
+      'PayloadIdentifier' => "#{prefix}.timemachine",
+      'PayloadUUID' => '4F7D5D0F-29C1-473B-8629-FF3EE4940426',
+      'PayloadEnabled' => true,
+      'PayloadDisplayName' => 'Time Machine Standard',
+      'familyControlsEnabled' => true,
+    )
+
+    tm_std_prefs.keys.each do |key|
+      next if tm_std_prefs[key].nil?
+      tm_profile['PayloadContent'][-1][key] = tm_std_prefs[key]
     end
   end
 
