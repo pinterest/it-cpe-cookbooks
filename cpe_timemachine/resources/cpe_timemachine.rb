@@ -62,7 +62,6 @@ action :run do
       'PayloadUUID' => '4F7D5D0F-29C1-473B-8629-FF3EE4940426',
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Time Machine Standard',
-      'familyControlsEnabled' => true,
     )
 
     tm_std_prefs.keys.each do |key|
