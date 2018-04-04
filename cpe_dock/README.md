@@ -42,6 +42,7 @@ The profile delivers a payload of all keys in `node['cpe_dock']` that are non-ni
 
 You can add any arbitrary keys to `node['cpe_dock']` to have them added to your profile.  As long as the values are not nil and create a valid profile, this cookbook will install and manage them.
 
+```
   # Add App Store and MSC to the dock
   node.default['cpe_dock']['static-apps'] = [
     {
@@ -103,3 +104,4 @@ You can add any arbitrary keys to `node['cpe_dock']` to have them added to your 
   node.default['cpe_dock']['show-process-indicators-immutable'] = false
   node.default['cpe_dock']['magnification'] = false
   node.default['cpe_dock']['size-immutable'] = false
+```
