@@ -43,65 +43,99 @@ The profile delivers a payload of all keys in `node['cpe_dock']` that are non-ni
 You can add any arbitrary keys to `node['cpe_dock']` to have them added to your profile.  As long as the values are not nil and create a valid profile, this cookbook will install and manage them.
 
 ```
-  # Add App Store and MSC to the dock
-  node.default['cpe_dock']['static-apps'] = [
-    {
-      'mcx_typehint' => 1,
-      'tile-data' => {
-        'file-data' => {
-          '_CFURLString' => '/Applications/App Store.app',
-          '_CFURLStringType' => 0,
-        },
-        'file-label' => 'App Store',
+# Add App Store and MSC to the dock
+node.default['cpe_dock']['static-apps'] = [
+  {
+    'mcx_typehint' => 1,
+    'tile-data' => {
+      'file-data' => {
+        '_CFURLString' => '/Applications/App Store.app',
+        '_CFURLStringType' => 0,
       },
-      'tile-type' => 'file-tile',
+      'file-label' => 'App Store',
     },
-    {
-      'mcx_typehint' => 1,
-      'tile-data' => {
-        'file-data' => {
-          '_CFURLString' => '/Applications/Managed Software Center.app',
-          '_CFURLStringType' => 0,
-        },
-        'file-label' => 'Managed Software Center',
+    'tile-type' => 'file-tile',
+  },
+  {
+    'mcx_typehint' => 1,
+    'tile-data' => {
+      'file-data' => {
+        '_CFURLString' => '/Applications/Managed Software Center.app',
+        '_CFURLStringType' => 0,
       },
-      'tile-type' => 'file-tile',
+      'file-label' => 'Managed Software Center',
     },
-  ]
+    'tile-type' => 'file-tile',
+  },
+]
 
-  # Add a folder link to /Applications
-  node.default['cpe_dock']['static-others'] = [
-    {
-      'mcx_typehint' => 2,
-      'tile-data' => {
-        'file-data' => {
-          '_CFURLString' => '/Applications',
-          '_CFURLStringType' => 0,
-        },
-        'file-label' => 'Applications',
-        'file-type' => 2,
+# Add a folder link to /Applications
+node.default['cpe_dock']['static-others'] = [
+  {
+    'mcx_typehint' => 2,
+    'tile-data' => {
+      'file-data' => {
+        '_CFURLString' => '/Applications',
+        '_CFURLStringType' => 0,
       },
-      'tile-type' => 'directory-tile',
+      'file-label' => 'Applications',
+      'file-type' => 2,
     },
-  ]
+    'tile-type' => 'directory-tile',
+  },
+]
 
-  # Various other settings you can figure out
-  node.default['cpe_dock']['tilesize'] = 64
-  node.default['cpe_dock']['orientation'] = 'bottom'
-  node.default['cpe_dock']['mineffect'] = 'genie'
-  node.default['cpe_dock']['minimize-to-application'] = false
-  node.default['cpe_dock']['launchanim'] = true
-  node.default['cpe_dock']['autohide'] = false
-  node.default['cpe_dock']['show-process-indicators'] = true
-  node.default['cpe_dock']['static-only'] = true
-  node.default['cpe_dock']['contents-immutable'] = false
-  node.default['cpe_dock']['launchanim-immutable'] = false
-  node.default['cpe_dock']['magnify-immutable'] = false
-  node.default['cpe_dock']['magsize-immutable'] = false
-  node.default['cpe_dock']['mineffect-immutable'] = false
-  node.default['cpe_dock']['minimize-to-application-immutable'] = false
-  node.default['cpe_dock']['position-immutable'] = false
-  node.default['cpe_dock']['show-process-indicators-immutable'] = false
-  node.default['cpe_dock']['magnification'] = false
-  node.default['cpe_dock']['size-immutable'] = false
+# Dock Icons
+# Set icon size
+node.default['cpe_dock']['tilesize'] = 64
+# Do not allow user to change icon size
+node.default['cpe_dock']['size-immutable'] = true
+# Do not merge with user's dock
+node.default['cpe_dock']['static-only'] = true
+# Do not allow user to override add items to dock
+node.default['cpe_dock']['contents-immutable'] = true
+
+# Dock Orientation
+# Set dock orientation (bottom, left, right)
+node.default['cpe_dock']['orientation'] = 'bottom'
+# Do not allow user to change dock orientation
+node.default['cpe_dock']['position-immutable'] = true
+
+# Dock Minimize Application
+# Set dock minimize windows into application icon
+node.default['cpe_dock']['minimize-to-application'] = true
+# Do not allow user to change dock minimize windows into application icon (not working on 10.13)
+node.default['cpe_dock']['minimize-to-application-immutable'] = true
+# Set dock minimize window effect (genie, scale)
+node.default['cpe_dock']['mineffect'] = 'genie'
+# Do not allow user to change dock minimize window effect
+node.default['cpe_dock']['mineffect-immutable'] = true
+
+# Dock Magnification
+# Set dock magnification
+node.default['cpe_dock']['magnification'] = false
+# Do not allow user to change dock magnification
+node.default['cpe_dock']['magnify-immutable'] = true
+# Set dock magnification size
+node.default['cpe_dock']['magsize'] = 96
+# Do not allow user to change dock magnification size
+node.default['cpe_dock']['magsize-immutable'] = true
+
+# Dock Indicators
+# Set dock indicator
+node.default['cpe_dock']['show-process-indicators'] = true
+# Do not allow user to change dock indicator (not working on 10.13)
+node.default['cpe_dock']['show-process-indicators-immutable'] = true
+
+# Dock Autohide
+# Set dock autohide
+node.default['cpe_dock']['autohide'] = false
+# Do not allow user to change dock autohide
+node.default['cpe_dock']['autohide-immutable'] = true
+
+# Dock Animation
+# Enable dock animation for opening windows
+node.default['cpe_dock']['launchanim'] = true
+# Do not allow user to change dock animation for opening windows
+node.default['cpe_dock']['launchanim-immutable'] = true
 ```
