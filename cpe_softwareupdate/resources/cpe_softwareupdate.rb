@@ -18,6 +18,7 @@ default_action :run
 action :run do
   susu_prefs = node['cpe_softwareupdate']['su'].reject { |_k, v| v.nil? }
   suc_prefs = node['cpe_softwareupdate']['commerce'].reject { |_k, v| v.nil? }
+  cv = node['chef_packages']['chef']['version']
   if susu_prefs.empty? && suc_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return
@@ -65,10 +66,18 @@ action :run do
     suc_prefs.keys.each do |key|
       next if suc_prefs[key].nil?
       su_profile['PayloadContent'][-1][key] = suc_prefs[key]
-      mac_os_x_userdefaults "Configure com.apple.commerce - #{key}" do
-        domain '/Library/Preferences/com.apple.commerce'
-        key key
-        value suc_prefs[key]
+      if Gem::Version.new(cv) >= Gem::Version.new('14.0.0')
+        macos_userdefaults "Configure com.apple.commerce - #{key}" do
+          domain '/Library/Preferences/com.apple.commerce'
+          key key
+          value suc_prefs[key]
+        end
+      else
+        mac_os_x_userdefaults "Configure com.apple.commerce - #{key}" do
+          domain '/Library/Preferences/com.apple.commerce'
+          key key
+          value suc_prefs[key]
+        end
       end
     end
   end
