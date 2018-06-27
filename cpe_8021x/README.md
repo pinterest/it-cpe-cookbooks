@@ -28,7 +28,7 @@ You can add any arbitrary keys to `node['cpe_8021x']` to have them added to your
     node.default['cpe_8021x']['ethernet']['AutoJoin'] = true
     node.default['cpe_8021x']['ethernet']['PayloadType'] =
       'com.apple.globalethernet.managed'
-    node.default['cpe_8021x']['ethernet']['PayloadCertificateUUID1'] =
+    node.default['cpe_8021x']['ethernet']['PayloadCertificateUUID'] =
       '6416f5be-64a0-4f55-a99e-a50290947207'
     node.default['cpe_8021x']['ethernet']['EAPClientConfiguration'] = {
       'AcceptEAPTypes' => [
@@ -47,7 +47,7 @@ You can add any arbitrary keys to `node['cpe_8021x']` to have them added to your
     node.default['cpe_8021x']['ethernet']['AutoJoin'] = true
     node.default['cpe_8021x']['ethernet']['PayloadType'] =
       'com.apple.firstactiveethernet.managed'
-    node.default['cpe_8021x']['ethernet']['PayloadCertificateUUID1'] =
+    node.default['cpe_8021x']['ethernet']['PayloadCertificateUUID'] =
       '6416f5be-64a0-4f55-a99e-a50290947207'
     node.default['cpe_8021x']['ethernet']['EAPClientConfiguration'] = {
       'AcceptEAPTypes' => [
