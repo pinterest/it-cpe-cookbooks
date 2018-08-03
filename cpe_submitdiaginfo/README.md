@@ -1,6 +1,6 @@
 cpe_submitdiaginfo Cookbook
 ========================
-Install a profile to manage screensaver settings.
+Install a profile to manage diagnostic information submission settings.
 
 
 Attributes
