@@ -11,5 +11,4 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return if node.firewall_enabled?
 include_recipe "cpe_firewall::#{node['platform']}"
