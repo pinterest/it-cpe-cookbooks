@@ -25,5 +25,6 @@ default['cpe_softwareupdate'] = {
     'CatalogURL' => nil,
     'ConfigDataInstall' => nil,
     'CriticalUpdateInstall' => nil,
+    'SUDisableEVCheck' => nil,
   },
 }
