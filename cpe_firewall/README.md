@@ -16,7 +16,7 @@ Attributes
 
 Usage
 -----
-The profile will manage the `com.apple.security.firewall` preference domain.
+The profile will manage the `com.apple.security.firewall` preference domain for macOS nodes, and for Windows nodes it ensure that the `MpsSvc` service is set auto-start and that the service itself is running.
 
 The profile's organization key defaults to `Pinterest` unless `node['organization']` is
 configured in your company's custom init recipe. The profile will also use

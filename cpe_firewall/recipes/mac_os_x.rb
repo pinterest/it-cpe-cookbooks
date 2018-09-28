@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cpe_firewall
-# Recipe:: default
+# Recipe:: mac_os_x
 #
 # vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
@@ -11,4 +11,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-include_recipe "cpe_firewall::#{node['platform']}"
+return unless node.macos?
+
+cpe_firewall 'Apply Firewall profile'

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cpe_firewall
-# Recipe:: default
+# Recipe:: windows
 #
 # vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
@@ -11,4 +11,11 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-include_recipe "cpe_firewall::#{node['platform']}"
+return unless node.windows?
+
+windows_service 'firewall' do
+  service_name 'MpsSvc'
+  run_as_user 'NT AUTHORITY\LocalService'
+  startup_type :automatic
+  action :start
+end
