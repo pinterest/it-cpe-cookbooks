@@ -17,6 +17,7 @@ Attributes
 * node['cpe_softwareupdate']['su']['CatalogURL']
 * node['cpe_softwareupdate']['su']['ConfigDataInstall']
 * node['cpe_softwareupdate']['su']['CriticalUpdateInstall']
+* node['cpe_softwareupdate']['su']['SUDisableEVCheck']
 
 Usage
 -----
@@ -46,3 +47,5 @@ For example, you could tweak the above values
     node.default['cpe_softwareupdate']['su']['ConfigDataInstall'] = true
     # Download security updates
     node.default['cpe_softwareupdate']['su']['CriticalUpdateInstall'] = true
+    # Disable TLS extended validation check
+    node.default['cpe_softwareupdate']['su']['SUDisableEVCheck'] = true
