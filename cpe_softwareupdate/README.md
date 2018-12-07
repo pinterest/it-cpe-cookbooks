@@ -6,6 +6,8 @@ Requirements
 ----------
 This cookbook requires the [mac_os_x](https://supermarket.chef.io/cookbooks/mac_os_x) cookbook.
 
+Please note that the above cookbook has been **deprecated** and does not work with Chef 14, though an [alternative version](https://github.com/erikng/mac_os_x) exists. This alternative version supports Chef 14, allowing you to continue to use this cookbook while upgrading your fleet of devices from prior versions of Chef.
+
 Attributes
 ----------
 * node['cpe_softwareupdate']
