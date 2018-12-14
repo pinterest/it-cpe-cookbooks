@@ -20,10 +20,15 @@ Attributes
 * node['cpe_softwareupdate']['su']['ConfigDataInstall']
 * node['cpe_softwareupdate']['su']['CriticalUpdateInstall']
 * node['cpe_softwareupdate']['su']['SUDisableEVCheck']
+* node['cpe_softwareupdate']['su']['AutomaticallyInstallMacOSUpdates']
+* node['cpe_softwareupdate']['stagent']['AutoUpdate']
 
 Usage
 -----
-The profile will manage the `com.apple.SoftwareUpdate` preference domain.
+The profile will manage the following preference domains:
+- com.apple.SoftwareUpdate
+- com.apple.commerce
+- com.apple.storeagent
 
 The profile's organization key defaults to `Pinterest` unless `node['organization']` is
 configured in your company's custom init recipe. The profile will also use
@@ -51,3 +56,7 @@ For example, you could tweak the above values
     node.default['cpe_softwareupdate']['su']['CriticalUpdateInstall'] = true
     # Disable TLS extended validation check
     node.default['cpe_softwareupdate']['su']['SUDisableEVCheck'] = true
+    # Enable automatatic macOS updates in Mojave
+    node.default['cpe_softwareupdate']['su']['AutomaticallyInstallMacOSUpdates'] = true
+    # Enable automatic app store updates of instaled apps
+    node.default['cpe_softwareupdate']['stagent']['AutoUpdate'] = true
