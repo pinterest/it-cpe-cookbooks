@@ -56,7 +56,7 @@ For example, you could tweak the above values
     node.default['cpe_softwareupdate']['su']['CriticalUpdateInstall'] = true
     # Disable TLS extended validation check
     node.default['cpe_softwareupdate']['su']['SUDisableEVCheck'] = true
-    # Enable automatatic macOS updates in Mojave
+    # Enable automatic macOS updates in Mojave
     node.default['cpe_softwareupdate']['su']['AutomaticallyInstallMacOSUpdates'] = true
-    # Enable automatic app store updates of instaled apps
+    # Enable automatic app store updates of installed apps
     node.default['cpe_softwareupdate']['stagent']['AutoUpdate'] = true
