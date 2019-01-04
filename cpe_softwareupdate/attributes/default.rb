@@ -17,9 +17,14 @@ default['cpe_softwareupdate'] = {
     'AutoUpdate' => nil,
     'AutoUpdateRestartRequired' => nil,
   },
+  # Store Agent
+  'stagent' => {
+    'AutoUpdate' => nil,
+  },
   # SoftwareUpdate
   'su' => {
     'AllowPreReleaseInstallation' => nil,
+    'AutomaticallyInstallMacOSUpdates' => nil,
     'AutomaticCheckEnabled' => nil,
     'AutomaticDownload' => nil,
     'CatalogURL' => nil,
