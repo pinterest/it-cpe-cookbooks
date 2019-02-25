@@ -19,15 +19,25 @@ action :manage do
   return unless node['cpe_crypt']['install']
   return unless node['cpe_crypt']['manage_ld']
 
-  # Manage Crypt checkin script and folder
-  remote_directory '/Library/Crypt' do
-    source 'crypt'
+  # Manage Crypt checkin folder
+  directory '/Library/Crypt' do
     owner 'root'
     group 'wheel'
     mode '0755'
-    files_mode '0755'
-    purge true
-    action :create
+  end
+
+  # Define and install crypt checkin files
+  %w[
+    checkin
+    FoundationPlist.py
+  ].each do |item|
+    cookbook_file "/Library/Crypt/#{item}" do
+      owner 'root'
+      group 'wheel'
+      mode '0755'
+      path "/Library/Crypt/#{item}"
+      source "crypt/#{item}"
+    end
   end
 
   # Launch Daemon

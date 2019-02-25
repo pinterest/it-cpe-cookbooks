@@ -8,6 +8,7 @@ import sys
 import datetime
 import syslog
 import platform
+import json
 from distutils.version import LooseVersion
 
 import FoundationPlist
@@ -32,10 +33,12 @@ stdout_logging = logging.StreamHandler()
 stdout_logging.setFormatter(logging.Formatter())
 logging.getLogger().addHandler(stdout_logging)
 
+
 def get_console_user():
     """returns the current console user via PyObjc"""
     cfuser = SCDynamicStoreCopyConsoleUser(None, None, None)
     return cfuser[0]
+
 
 def get_os_version(only_major_minor=True, as_tuple=False):
     """Returns an OS version.
@@ -51,6 +54,7 @@ def get_os_version(only_major_minor=True, as_tuple=False):
         return tuple(map(int, os_version_tuple))
     else:
         return '.'.join(os_version_tuple)
+
 
 def set_pref(pref_name, pref_value):
     """Sets a preference, writing it to
@@ -106,6 +110,17 @@ def GetMacName():
     return thename
 
 
+def curl_escape(s):
+    return s.encode('utf-8').encode('string_escape').replace('"', '\\"')
+
+
+def build_curl_config_file(d):
+    lines = []
+    for k, v in d.items():
+        lines.append('%s = "%s"' % (k, curl_escape(v)))
+    return '\n'.join(lines)
+
+
 def escrow_key(plist):
     logging.info('Attempting to Escrow Key...')
     server_url = pref('ServerURL')
@@ -126,16 +141,58 @@ def escrow_key(plist):
         ('username', username), ('macname', macname)
     ]
     mydata = urllib.urlencode(mydata)
-    cmd = ['/usr/bin/curl', '-fsSL', '--data', mydata, theurl]
+    config_file = build_curl_config_file({'url': theurl, 'data': mydata})
+    # --fail: Fail silently (no output at all) on server errors.
+    # --silent: Silent mode. Don't show progress meter or error messages.
+    # --show-error: When used with silent, it makes curl show an error message
+    # if it fails.
+    # --location: This option will make curl redo the request on the new
+    # location if the server responds with a 3xx code.
+    # --config: Specify which config file to read curl arguments from.
+    # The config file is a text file in which command line arguments can be
+    # written which then will be used as if they were written on the actual
+    # command line.
+    cmd = ['/usr/bin/curl', '--fail', '--silent',
+           '--show-error', '--location', '--config', '-']
     task = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-    (output, error) = task.communicate()
+                            stderr=subprocess.PIPE,
+                            stdin=subprocess.PIPE)
+    (output, error) = task.communicate(input=config_file)
+
     if task.returncode == 0:
         logging.info('Key escrow successful.')
+        server_initiated_rotation(output)
         return True
     else:
         logging.error('Key escrow unsuccessful.')
         return False
+
+
+def server_initiated_rotation(output):
+    """
+    Rotate the key if the server tells us to.
+    We need the old key to be present on disk and RotateUsedKey to be True
+    """
+    try:
+        json_output = json.loads(output)
+    except ValueError:
+        return ''
+
+    if not pref('RotateUsedKey') or pref('RemovePlist'):
+        # Don't do anything if we don't care about the good stuff
+        return ''
+
+    output_plist = pref('OutputPath')
+    if not os.path.isfile(output_plist):
+        # Need this to be here too (which it should, but you never know..)
+        return ''
+
+    if json_output.get('rotation_required', False):
+        logging.info('Removing output plist for rotation at next login.')
+        os.remove(output_plist)
+
+    post_run_command()
+
 
 def using_recovery_key():
     """Check if FileVault is currently unlocked using
@@ -152,6 +209,18 @@ def using_recovery_key():
         return True
     else:
         return False
+
+
+def post_run_command():
+    run_command = pref('PostRunCommand')
+    output_plist = pref('OutputPath')
+    if run_command and not os.path.isfile(output_plist):
+        logging.info('Running {}'.format(run_command))
+        try:
+            output = subprocess.check_output(run_command)
+            logging.info(output)
+        except subprocess.CalledProcessError as e:
+            logging.error('Failed to run PostRunCommand: {}'.format(e))
 
 
 def get_recovery_key(key_location):
@@ -171,6 +240,7 @@ def get_recovery_key(key_location):
             'Problem with Key: "RecoveryKey" in {0}...'.format(key_location))
         return False
 
+
 def rotate_invalid_key(plist_path):
     """
     Will send the key (if present) for validation. If validation fails,
@@ -178,6 +248,10 @@ def rotate_invalid_key(plist_path):
     Due to the bug that restricts the number of validations before reboot
     in versions of macOS prior to 10.12.5, this will only run there.
     """
+    # a work aroud for https://github.com/grahamgilbert/crypt/issues/68
+    if not get_console_user():
+        logging.info('Skipping Validation, no user is logged in.')
+        return True
 
     macos_version = get_os_version(only_major_minor=False, as_tuple=False)
 
@@ -185,7 +259,7 @@ def rotate_invalid_key(plist_path):
         logging.warning('macOS version is too old to run reliably')
         return False
 
-    if os.path.exists(plist_path):
+    if os.path.isfile(plist_path):
         recovery_key = get_recovery_key(plist_path)
     else:
         logging.warning('Recovery key is not present on disk')
@@ -205,9 +279,11 @@ def rotate_invalid_key(plist_path):
     logging.info('Stored recovery key is valid.')
     return True
 
+
 def validate_key(current_key):
     """Validates the given recovery key against FileVault, returns True
     or False accordingly"""
+
     key = {'Password': current_key}
     input_plist = FoundationPlist.writePlistToString(key)
     cmd = subprocess.Popen(['/usr/bin/fdesetup', 'validaterecovery',
@@ -220,8 +296,9 @@ def validate_key(current_key):
     if stdout_data.strip() == 'true':
         return True
     else:
+        logging.error('Recovery Key could not be validated.')
+        logging.error('Failed with Error: {}'.format(stdout_data))
         return False
-        logging.info('Recovery Key could not be validated.')
 
 
 def rotate_key(current_key, plist):
@@ -260,6 +337,7 @@ def get_enabled_user():
             break
     return cryptuser
 
+
 def rotate_if_used(key_path):
     """Checks to see if the recovery key was used to unlock the machine
     if it was then use our current key to rotate it"""
@@ -284,8 +362,9 @@ def main():
         rotate_if_used(plist_path)
 
     if pref('RotateUsedKey') and pref('ValidateKey') and \
-    not pref('RemovePlist'):
+            not pref('RemovePlist'):
         rotate_invalid_key(plist_path)
+        post_run_command()
 
     if os.path.isfile(plist_path):
         plist = FoundationPlist.readPlist(plist_path)
@@ -313,7 +392,7 @@ def main():
                         escrow_interval))
                 sys.exit(0)
         escrow_result = escrow_key(plist=plist)
-        if escrow_result:
+        if escrow_result and os.path.isfile(plist_path):
             remove_plist = pref('RemovePlist')
             plist['escrow_success'] = True
             plist['last_run'] = datetime.datetime.now()
@@ -321,6 +400,10 @@ def main():
             if remove_plist is True:
                 os.remove(plist_path)
                 logging.info('Removing plist due to configuration.')
+            else:
+                os.chmod(plist_path, 0600)
+                logging.info('Ensuring permissions on plist.')
+
 
 if __name__ == '__main__':
     main()

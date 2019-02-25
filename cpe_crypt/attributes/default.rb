@@ -60,9 +60,9 @@ default['cpe_crypt'] = {
   'pkg' => {
     'name' => 'crypt',
     'checksum' =>
-      '1582e974820a5b27cfe462521cb0d4802319224753f3d6417ee23fff9333872a',
+      'ecfb1d0632953cde8d95676b6d2812590fc515cd96709d0af125486917f72b32',
     'receipt' => 'com.grahamgilbert.Crypt',
-    'version' => '3.0.0.109',
+    'version' => '3.3.0.178',
     'pkg_name' => nil,
     'pkg_url' => nil,
   },
