@@ -19,14 +19,14 @@ action :manage do
   return unless node['cpe_crypt']['install']
   return unless node['cpe_crypt']['manage_ld']
 
-  # Manage Crypt checkin script and folder
+  # Manage Crypt checkin folder
   directory '/Library/Crypt' do
     owner 'root'
     group 'wheel'
     mode '0755'
   end
 
-  # Define and install custom facts
+  # Define and install crypt checkin files
   %w[
     checkin
     FoundationPlist.py
