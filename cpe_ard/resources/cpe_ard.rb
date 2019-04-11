@@ -44,7 +44,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Apple Remote Desktop Application',
     )
-    ard_prefs.keys.each do |key|
+    ard_prefs.each_key do |key|
       next if ard_prefs[key].nil?
       ard_profile['PayloadContent'][0][key] = ard_prefs[key]
     end

@@ -45,7 +45,7 @@ action :run do
       'PayloadDisplayName' => 'System Policy Control',
     )
 
-    gk_prefs.keys.each do |key|
+    gk_prefs.each_key do |key|
       next if gk_prefs[key].nil?
       gk_profile['PayloadContent'][0][key] = gk_prefs[key]
     end
@@ -61,7 +61,7 @@ action :run do
       'PayloadDisplayName' => 'System Policy Managed',
     )
 
-    gkm_prefs.keys.each do |key|
+    gkm_prefs.each_key do |key|
       next if gkm_prefs[key].nil?
       gk_profile['PayloadContent'][-1][key] = gkm_prefs[key]
     end

@@ -45,7 +45,7 @@ action :run do
       'PayloadDisplayName' => 'Application Restrictions',
     )
 
-    aa_prefs.keys.each do |key|
+    aa_prefs.each_key do |key|
       next if aa_prefs[key].nil?
       aa_profile['PayloadContent'][0][key] = aa_prefs[key]
     end
@@ -62,7 +62,7 @@ action :run do
       'familyControlsEnabled' => true,
     )
 
-    aan_prefs.keys.each do |key|
+    aan_prefs.each_key do |key|
       next if aan_prefs[key].nil?
       aa_profile['PayloadContent'][-1][key] = aan_prefs[key]
     end

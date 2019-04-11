@@ -39,7 +39,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Preference Security',
     )
-    ps_prefs.keys.each do |key|
+    ps_prefs.each_key do |key|
       next if ps_prefs[key].nil?
       ps_profile['PayloadContent'][0][key] = ps_prefs[key]
     end

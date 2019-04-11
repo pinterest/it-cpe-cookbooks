@@ -56,7 +56,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'ScreenSaver',
     )
-    ss_prefs.keys.each do |key|
+    ss_prefs.each_key do |key|
       next if ss_prefs[key].nil?
       ss_profile['PayloadContent'][0][key] = ss_prefs[key]
     end

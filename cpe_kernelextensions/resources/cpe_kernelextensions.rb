@@ -43,7 +43,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Kernel Extensions',
     )
-    ke_prefs.keys.each do |key|
+    ke_prefs.each_key do |key|
       next if ke_prefs[key].nil?
       ke_profile['PayloadContent'][0][key] = ke_prefs[key]
     end

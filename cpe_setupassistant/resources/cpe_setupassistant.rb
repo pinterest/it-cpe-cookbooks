@@ -84,7 +84,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'SetupAssistant (Managed)',
     )
-    sam_prefs.keys.each do |key|
+    sam_prefs.each_key do |key|
       next if sam_prefs[key].nil?
       sam_profile['PayloadContent'][0][key] = sam_prefs[key]
     end

@@ -44,7 +44,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Password Policy and ScreenSaver',
     )
-    sc_prefs.keys.each do |key|
+    sc_prefs.each_key do |key|
       next if sc_prefs[key].nil?
       sc_profile['PayloadContent'][0][key] = sc_prefs[key]
     end

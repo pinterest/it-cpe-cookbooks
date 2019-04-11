@@ -43,7 +43,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Global Preferences',
     )
-    gp_prefs.keys.each do |key|
+    gp_prefs.each_key do |key|
       next if gp_prefs[key].nil?
       gp_profile['PayloadContent'][0][key] = gp_prefs[key]
     end

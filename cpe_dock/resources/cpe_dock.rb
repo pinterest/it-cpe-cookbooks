@@ -43,7 +43,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Dock',
     )
-    dock_prefs.keys.each do |key|
+    dock_prefs.each_key do |key|
       next if dock_prefs[key].nil?
       dock_profile['PayloadContent'][0][key] = dock_prefs[key]
     end

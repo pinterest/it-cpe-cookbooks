@@ -48,7 +48,7 @@ action :run do
       'PayloadDisplayName' => 'SoftwareUpdate (SoftwareUpdate)',
     )
 
-    susu_prefs.keys.each do |key|
+    susu_prefs.each_key do |key|
       next if susu_prefs[key].nil?
       su_profile['PayloadContent'][0][key] = susu_prefs[key]
       if Gem::Version.new(cv) >= Gem::Version.new('14.0.0')
@@ -77,7 +77,7 @@ action :run do
       'PayloadDisplayName' => 'SoftwareUpdate (Commerce)',
     )
 
-    suc_prefs.keys.each do |key|
+    suc_prefs.each_key do |key|
       next if suc_prefs[key].nil?
       su_profile['PayloadContent'][-1][key] = suc_prefs[key]
       if Gem::Version.new(cv) >= Gem::Version.new('14.0.0')
@@ -106,7 +106,7 @@ action :run do
       'PayloadDisplayName' => 'SoftwareUpdate (Store Agent)',
     )
 
-    sta_prefs.keys.each do |key|
+    sta_prefs.each_key do |key|
       next if sta_prefs[key].nil?
       su_profile['PayloadContent'][-1][key] = sta_prefs[key]
       if Gem::Version.new(cv) >= Gem::Version.new('14.0.0')

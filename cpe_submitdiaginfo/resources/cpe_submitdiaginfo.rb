@@ -39,7 +39,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Submit Diag Info',
     )
-    sd_prefs.keys.each do |key|
+    sd_prefs.each_key do |key|
       next if sd_prefs[key].nil?
       sd_profile['PayloadContent'][0][key] = sd_prefs[key]
     end
