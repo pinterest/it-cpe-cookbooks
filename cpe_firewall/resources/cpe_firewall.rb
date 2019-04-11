@@ -43,7 +43,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Firewall Policy',
     )
-    fw_prefs.keys.each do |key|
+    fw_prefs.each_key do |key|
       next if fw_prefs[key].nil?
       fw_profile['PayloadContent'][0][key] = fw_prefs[key]
     end

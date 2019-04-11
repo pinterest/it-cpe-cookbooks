@@ -48,7 +48,7 @@ action :run do
       'PayloadDisplayName' => 'Time Machine MC X',
     )
 
-    tm_mcx_prefs.keys.each do |key|
+    tm_mcx_prefs.each_key do |key|
       next if tm_mcx_prefs[key].nil?
       tm_profile['PayloadContent'][0][key] = tm_mcx_prefs[key]
     end
@@ -64,7 +64,7 @@ action :run do
       'PayloadDisplayName' => 'Time Machine Standard',
     )
 
-    tm_std_prefs.keys.each do |key|
+    tm_std_prefs.each_key do |key|
       next if tm_std_prefs[key].nil?
       tm_profile['PayloadContent'][-1][key] = tm_std_prefs[key]
     end

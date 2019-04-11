@@ -46,7 +46,7 @@ action :config do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Crypt',
     )
-    crypt_prefs.keys.each do |key|
+    crypt_prefs.each_key do |key|
       next if crypt_prefs[key].nil?
       crypt_profile['PayloadContent'][0][key] = crypt_prefs[key]
     end

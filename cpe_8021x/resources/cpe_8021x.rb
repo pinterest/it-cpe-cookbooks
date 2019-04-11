@@ -51,7 +51,7 @@ action :run do
       'PayloadDisplayName' => '802.1x (Ethernet)',
     )
 
-    ethernet_prefs.keys.each do |key|
+    ethernet_prefs.each_key do |key|
       next if ethernet_prefs[key].nil?
       eap_profile['PayloadContent'][0][key] = ethernet_prefs[key]
     end
@@ -67,7 +67,7 @@ action :run do
       'PayloadDisplayName' => '802.1x (Wifi)',
     )
 
-    wifi_prefs.keys.each do |key|
+    wifi_prefs.each_key do |key|
       next if wifi_prefs[key].nil?
       eap_profile['PayloadContent'][-1][key] = wifi_prefs[key]
     end

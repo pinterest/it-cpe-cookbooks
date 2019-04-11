@@ -47,7 +47,7 @@ action :config do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Hello IT Application Preferences',
     )
-    hit_prefs.keys.each do |key|
+    hit_prefs.each_key do |key|
       next if hit_prefs[key].nil?
       hit_profile['PayloadContent'][0][key] = hit_prefs[key]
     end

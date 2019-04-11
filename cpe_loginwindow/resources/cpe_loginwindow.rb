@@ -43,7 +43,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'LoginWindow',
     )
-    lw_prefs.keys.each do |key|
+    lw_prefs.each_key do |key|
       next if lw_prefs[key].nil?
       lw_profile['PayloadContent'][0][key] = lw_prefs[key]
     end

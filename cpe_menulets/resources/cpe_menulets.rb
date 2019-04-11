@@ -43,7 +43,7 @@ action :run do
       'PayloadEnabled' => true,
       'PayloadDisplayName' => 'Menulet',
     )
-    ml_prefs.keys.each do |key|
+    ml_prefs.each_key do |key|
       next if ml_prefs[key].nil?
       ml_profile['PayloadContent'][0][key] = ml_prefs[key]
     end
