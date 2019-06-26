@@ -24,18 +24,18 @@ action :run do
 
   organization = node['organization'] ? node['organization'] : 'Pinterest'
   prefix = node['cpe_profiles']['prefix']
-  sa_profile = {
-    'PayloadIdentifier' => "#{prefix}.setupassistant",
-    'PayloadRemovalDisallowed' => true,
-    'PayloadScope' => 'System',
-    'PayloadType' => 'Configuration',
-    'PayloadUUID' => '552E2A87-2B97-4626-AAE1-DF2113960074',
-    'PayloadOrganization' => organization,
-    'PayloadVersion' => 1,
-    'PayloadDisplayName' => 'SetupAssistant',
-    'PayloadContent' => [],
-  }
   unless saonce_prefs.empty?
+    sa_profile = {
+      'PayloadIdentifier' => "#{prefix}.setupassistant",
+      'PayloadRemovalDisallowed' => true,
+      'PayloadScope' => 'System',
+      'PayloadType' => 'Configuration',
+      'PayloadUUID' => '552E2A87-2B97-4626-AAE1-DF2113960074',
+      'PayloadOrganization' => organization,
+      'PayloadVersion' => 1,
+      'PayloadDisplayName' => 'SetupAssistant',
+      'PayloadContent' => [],
+    }
     sa_profile['PayloadContent'].push(
       {
         'PayloadType' => 'com.apple.ManagedClient.preferences',
@@ -55,27 +55,21 @@ action :run do
         },
       },
     )
+    node.default['cpe_profiles']["#{prefix}.setupassistant"] = sa_profile
   end
 
-  node.default['cpe_profiles']["#{prefix}.setupassistant"] = sa_profile
-
-  if sam_prefs.empty?
-    Chef::Log.info("#{cookbook_name}: No prefs found.")
-    return
-  end
-
-  sam_profile = {
-    'PayloadIdentifier' => "#{prefix}.setupassistant.managed",
-    'PayloadRemovalDisallowed' => true,
-    'PayloadScope' => 'System',
-    'PayloadType' => 'Configuration',
-    'PayloadUUID' => '4616f49c-5a67-4fb5-a3e5-c6855be7f8ba',
-    'PayloadOrganization' => organization,
-    'PayloadVersion' => 1,
-    'PayloadDisplayName' => 'SetupAssistant',
-    'PayloadContent' => [],
-  }
   unless sam_prefs.empty?
+    sam_profile = {
+      'PayloadIdentifier' => "#{prefix}.setupassistant.managed",
+      'PayloadRemovalDisallowed' => true,
+      'PayloadScope' => 'System',
+      'PayloadType' => 'Configuration',
+      'PayloadUUID' => '4616f49c-5a67-4fb5-a3e5-c6855be7f8ba',
+      'PayloadOrganization' => organization,
+      'PayloadVersion' => 1,
+      'PayloadDisplayName' => 'SetupAssistant',
+      'PayloadContent' => [],
+    }
     sam_profile['PayloadContent'].push(
       'PayloadType' => 'com.apple.SetupAssistant.managed',
       'PayloadVersion' => 1,
@@ -88,7 +82,8 @@ action :run do
       next if sam_prefs[key].nil?
       sam_profile['PayloadContent'][0][key] = sam_prefs[key]
     end
-  end
 
-  node.default['cpe_profiles']["#{prefix}.setupassistant.managed"] = sam_profile
+    node.default['cpe_profiles']["#{prefix}.setupassistant.managed"] =
+      sam_profile
+  end
 end
