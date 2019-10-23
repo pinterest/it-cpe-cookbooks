@@ -11,6 +11,15 @@
 # LICENSE file in the root directory of this source tree.
 #
 default['cpe_ard'] = {
-  'AdminConsoleAllowsRemoteControl' => nil,
-  'LoadRemoteManagementMenuExtra' => nil,
+  'kickstart' => {
+    'enable' => false,
+    'manage' => false,
+    'tcc_profile_id' => nil, # string
+  },
+  'profile' => {
+    'prefs' => {
+      'AdminConsoleAllowsRemoteControl' => nil,
+      'LoadRemoteManagementMenuExtra' => nil,
+    },
+  },
 }

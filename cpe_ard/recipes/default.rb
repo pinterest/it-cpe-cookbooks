@@ -11,4 +11,4 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-cpe_ard 'Apply Apple Remote Desktop App profile'
+cpe_ard 'Apply Apple Remote Desktop configurations'
