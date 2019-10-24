@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: cpe_crypt
+# Cookbook:: cpe_crypt
 # Recipe:: default
 #
 # vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
-# Copyright (c) 2017-present, Pinterest, Inc.
+# Copyright:: (c) 2017-present, Pinterest, Inc.
 # All rights reserved.
 #
 # This source code is licensed under the Apache 2.0 license found in the
