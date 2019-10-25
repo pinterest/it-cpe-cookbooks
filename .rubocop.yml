@@ -83,13 +83,6 @@ DeprecatedClassMethods:
 FileName:
   Enabled: false
 
-# I don't know what it's metric for "human complexity" is, but it's wrong.
-PerceivedComplexity:
-  Enabled: false
-
-UnneededDisable:
-  Enabled: false
-
 # Seems buggy - https://github.com/bbatsov/rubocop/issues/2690
 MultilineOperationIndentation:
   Enabled: false
@@ -128,9 +121,6 @@ HashSyntax:
 
 Style/Documentation:
   Enabled: false
-
-TrailingCommaInLiteral:
-  EnforcedStyleForMultiline: comma
 
 TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma

@@ -4,7 +4,7 @@ Install a profile to manage the loginwindow.
 
 Requirements
 ------------
-macOSs
+macOS
 
 Attributes
 ----------

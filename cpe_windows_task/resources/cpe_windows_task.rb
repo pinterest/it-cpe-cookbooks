@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: cpe_windows_task
+# Cookbook:: cpe_windows_task
 # Resource:: cpe_windows_task
 #
 # vim: syntax=ruby:expandtab:shiftwidth=2:softtabstop=2:tabstop=2
 #
-# Copyright (c) 2018-present, Pinterest, Inc.
+# Copyright:: (c) 2018-present, Pinterest, Inc.
 # All rights reserved.
 #
 # This source code is licensed under the Apache 2.0 license found in the
@@ -70,9 +70,7 @@ def find_managed_task_labels
   tasks = TASK_DIRS.inject([]) do |results, dir|
     edir = ::File.expand_path(dir)
     entries = Dir.glob(
-      "#{edir}/*#{
-        Chef::Util::PathHelper.escape_glob(node['cpe_windows_task']['prefix'])
-      }*"
+      "#{edir}/*#{Chef::Util::PathHelper.escape_glob(node['cpe_windows_task']['prefix'])}*",
     )
     entries.any? ? results << entries : results
   end

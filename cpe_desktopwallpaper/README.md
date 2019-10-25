@@ -1,9 +1,11 @@
 cpe_desktopwallpaper Cookbook
 =========================
+
 Install a profile to manage Desktop settings.
+
 Requirements
 ------------
-maOS
+macOS
 
 Attributes
 ----------
@@ -12,6 +14,7 @@ Attributes
 
 Usage
 -----
+
 The profile will manage the `com.apple.desktop` preference domain.
 
 The profile's organization key defaults to `Pinterest` unless `node['organization']` is
