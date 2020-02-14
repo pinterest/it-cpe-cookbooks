@@ -54,12 +54,12 @@ action_class do
 
   def manage_authdb?
     if uninstall?
-      return true
+      true
+    elsif install? && manage?
+      true
+    else
+      false
     end
-    if install? && manage?
-      return true
-    end
-    false
   end
 
   def authdb
