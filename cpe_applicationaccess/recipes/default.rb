@@ -11,6 +11,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return unles node.macos?
+return unless node.macos?
 
 cpe_applicationaccess 'Apply Application Access profile'
