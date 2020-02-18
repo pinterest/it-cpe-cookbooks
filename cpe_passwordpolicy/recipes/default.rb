@@ -11,4 +11,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+return unless node.macos?
+
 cpe_passwordpolicy 'Apply Password Policy/Screen Saver profile'
