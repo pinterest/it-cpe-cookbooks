@@ -10,3 +10,4 @@ supports 'mac_os_x'
 
 depends 'cpe_profiles'
 depends 'cpe_utils'
+depends 'uber_helpers'

@@ -13,4 +13,4 @@
 
 return unless node.macos?
 
-cpe_ard 'Apply Apple Remote Desktop App profile'
+cpe_ard 'Apply Apple Remote Desktop configurations'

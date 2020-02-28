@@ -2,15 +2,34 @@ cpe_ard Cookbook
 =========================
 Install a profile to manage Apple Remote Desktop Application settings.
 
+This cookbook depends on the following cookbooks
+
+* cpe_profiles
+* cpe_utils
+* uber_helpers
+
+These cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository and Uber in the [cpe-chef-cookbooks](https://github.com/uber/cpe-chef-cookbooks) repository.
+
 Requirements
 ------------
 Mac OS X
 
+Notes
+------------
+As of macOS 10.14 and higher, you cannot enforce the enablement of Apple Remote Desktop functionality without a TCC profile installed via UAMDM/DEP.
+
+Please follow this [KB article](https://support.apple.com/en-us/HT209161) to create the appropriate profile that chef will check against.
+
 Attributes
 ----------
 * node['cpe_ard']
-* node['cpe_ard']['AdminConsoleAllowsRemoteControl']
-* node['cpe_ard']['LoadRemoteManagementMenuExtra']
+* node['cpe_ard']['profile']['prefs']
+* node['cpe_ard']['profile']['prefs']['AdminConsoleAllowsRemoteControl']
+* node['cpe_ard']['profile']['prefs']['LoadRemoteManagementMenuExtra']
+* node['cpe_ard']['kickstart']
+* node['cpe_ard']['kickstart']['enable']
+* node['cpe_ard']['kickstart']['manage']
+* node['cpe_ard']['kickstart']['tcc_profile_id']
 
 Usage
 -----
@@ -26,6 +45,17 @@ You can add any arbitrary keys to `node['cpe_ard']` to have them added to your p
 
 The most common use case is for service machines with Apple Remote Desktop installed.
 
-    # Force Apple Remote Desktop use when application is open.
-    node.default['cpe_ard']['AdminConsoleAllowsRemoteControl'] = true
-    node.default['cpe_ard']['LoadRemoteManagementMenuExtra'] = true
+    # Force Apple Remote Desktop (Application) use when application is open.
+    node.default['cpe_ard']['profile']['prefs']['AdminConsoleAllowsRemoteControl'] = true
+    node.default['cpe_ard']['profile']['prefs']['LoadRemoteManagementMenuExtra'] = true
+
+    # Enable Apple Remote Desktop access
+    node.default['cpe_ard']['kickstart']['manage'] = true
+    node.default['cpe_ard']['kickstart']['enable'] = true
+    # TCC Profile identifier for 10.14 + machines
+    node.default['cpe_ard']['kickstart']['tcc_profile_id'] = 'your profile identifier'
+
+If you simply want to disable Apple Remote Desktop access.
+
+    # Disable Apple Remote Desktop access
+    node.default['cpe_ard']['kickstart']['manage'] = true
