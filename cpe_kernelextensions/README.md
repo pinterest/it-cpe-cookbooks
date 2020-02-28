@@ -4,7 +4,7 @@ Install a profile to manage the kernel extensions.
 
 Requirements
 ------------
-macOSs
+macOS
 
 Attributes
 ----------

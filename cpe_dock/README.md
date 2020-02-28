@@ -4,7 +4,7 @@ Install a profile to manage the dock.
 
 Requirements
 ------------
-macOSs
+macOS
 
 Attributes
 ----------
