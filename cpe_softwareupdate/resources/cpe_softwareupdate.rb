@@ -19,7 +19,6 @@ action :run do
   susu_prefs = node['cpe_softwareupdate']['su'].reject { |_k, v| v.nil? }
   suc_prefs = node['cpe_softwareupdate']['commerce'].reject { |_k, v| v.nil? }
   sta_prefs = node['cpe_softwareupdate']['stagent'].reject { |_k, v| v.nil? }
-  cv = node['chef_packages']['chef']['version']
   if susu_prefs.empty? && suc_prefs.empty? && sta_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return
@@ -51,18 +50,10 @@ action :run do
     susu_prefs.each_key do |key|
       next if susu_prefs[key].nil?
       su_profile['PayloadContent'][0][key] = susu_prefs[key]
-      if Gem::Version.new(cv) >= Gem::Version.new('14.0.0')
-        macos_userdefaults "Configure com.apple.SoftwareUpdate - #{key}" do
-          domain '/Library/Preferences/com.apple.SoftwareUpdate'
-          key key
-          value susu_prefs[key]
-        end
-      else
-        mac_os_x_userdefaults "Configure com.apple.SoftwareUpdate - #{key}" do
-          domain '/Library/Preferences/com.apple.SoftwareUpdate'
-          key key
-          value susu_prefs[key]
-        end
+      macos_userdefaults "Configure com.apple.SoftwareUpdate - #{key}" do
+        domain '/Library/Preferences/com.apple.SoftwareUpdate'
+        key key
+        value susu_prefs[key]
       end
     end
   end
@@ -80,18 +71,10 @@ action :run do
     suc_prefs.each_key do |key|
       next if suc_prefs[key].nil?
       su_profile['PayloadContent'][-1][key] = suc_prefs[key]
-      if Gem::Version.new(cv) >= Gem::Version.new('14.0.0')
-        macos_userdefaults "Configure com.apple.commerce - #{key}" do
-          domain '/Library/Preferences/com.apple.commerce'
-          key key
-          value suc_prefs[key]
-        end
-      else
-        mac_os_x_userdefaults "Configure com.apple.commerce - #{key}" do
-          domain '/Library/Preferences/com.apple.commerce'
-          key key
-          value suc_prefs[key]
-        end
+      macos_userdefaults "Configure com.apple.commerce - #{key}" do
+        domain '/Library/Preferences/com.apple.commerce'
+        key key
+        value suc_prefs[key]
       end
     end
   end
@@ -109,18 +92,10 @@ action :run do
     sta_prefs.each_key do |key|
       next if sta_prefs[key].nil?
       su_profile['PayloadContent'][-1][key] = sta_prefs[key]
-      if Gem::Version.new(cv) >= Gem::Version.new('14.0.0')
-        macos_userdefaults "Configure com.apple.storeagent - #{key}" do
-          domain '/Library/Preferences/com.apple.storeagent'
-          key key
-          value sta_prefs[key]
-        end
-      else
-        mac_os_x_userdefaults "Configure com.apple.storeagent - #{key}" do
-          domain '/Library/Preferences/com.apple.storeagent'
-          key key
-          value sta_prefs[key]
-        end
+      macos_userdefaults "Configure com.apple.storeagent - #{key}" do
+        domain '/Library/Preferences/com.apple.storeagent'
+        key key
+        value sta_prefs[key]
       end
     end
   end
