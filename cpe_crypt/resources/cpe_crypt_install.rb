@@ -13,6 +13,7 @@
 
 resource_name :cpe_crypt_install
 provides :cpe_crypt_install, :os => 'darwin'
+
 default_action :manage
 
 action :manage do

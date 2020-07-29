@@ -12,6 +12,8 @@
 #
 
 resource_name :cpe_crypt_profile
+provides :cpe_crypt_profile, :os => 'darwin'
+
 default_action :config
 
 action :config do
