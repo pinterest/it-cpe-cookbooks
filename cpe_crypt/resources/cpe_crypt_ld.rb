@@ -13,6 +13,7 @@
 
 resource_name :cpe_crypt_ld
 provides :cpe_crypt_ld, :os => 'darwin'
+
 default_action :manage
 
 action :manage do

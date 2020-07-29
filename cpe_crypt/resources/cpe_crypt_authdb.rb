@@ -13,6 +13,7 @@
 
 resource_name :cpe_crypt_authdb
 provides :cpe_crypt_authdb, :os => 'darwin'
+
 default_action :manage
 
 action :manage do
@@ -24,7 +25,17 @@ action :manage do
   end
   # First, validate whether or not the current settings are correct
   # Get current settings from authdb
-  if crypt_currently_in_authdb && !uninstall?
+  currently_in_authdb = crypt_currently_in_authdb
+
+  # Uninstall needs to go first, because you could have manage and uninstall
+  # set to true
+  unless currently_in_authdb && uninstall?
+    Chef::Log.debug('Crypt already removed from Authdb')
+    return
+  end
+
+  # TODO: manage_crypt_authorizationdb should have a real idempotency guard
+  if currently_in_authdb && manage?
     Chef::Log.debug('Authdb already configured for Crypt')
     return
   end
@@ -40,10 +51,6 @@ action_class do
     ].freeze
   end
 
-  def install?
-    node['cpe_crypt']['install']
-  end
-
   def manage?
     node['cpe_crypt']['manage_authdb']
   end
@@ -55,7 +62,7 @@ action_class do
   def manage_authdb?
     if uninstall?
       true
-    elsif install? && manage?
+    elsif manage?
       true
     else
       false
