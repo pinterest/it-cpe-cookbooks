@@ -35,7 +35,7 @@ action :manage do
   end
 
   # TODO: manage_crypt_authorizationdb should have a real idempotency guard
-  if currently_in_authdb && (install? || manage?)
+  if currently_in_authdb && manage?
     Chef::Log.debug('Authdb already configured for Crypt')
     return
   end
@@ -51,10 +51,6 @@ action_class do
     ].freeze
   end
 
-  def install?
-    node['cpe_crypt']['install']
-  end
-
   def manage?
     node['cpe_crypt']['manage_authdb']
   end
@@ -66,7 +62,7 @@ action_class do
   def manage_authdb?
     if uninstall?
       true
-    elsif install? && manage?
+    elsif manage?
       true
     else
       false
