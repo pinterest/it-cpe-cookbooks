@@ -12,6 +12,8 @@
 #
 
 resource_name :cpe_softwareupdate
+provides :cpe_softwareupdate, :os => 'darwin'
+
 default_action :run
 
 # Enforce SoftwareUpdate settings

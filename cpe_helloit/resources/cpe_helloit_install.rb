@@ -13,6 +13,7 @@
 
 resource_name :cpe_helloit_install
 provides :cpe_helloit_install, :os => 'darwin'
+
 default_action :manage
 
 action :manage do

@@ -13,6 +13,7 @@
 
 resource_name :cpe_helloit_la
 provides :cpe_helloit_la, :os => 'darwin'
+
 default_action :manage
 
 action :manage do

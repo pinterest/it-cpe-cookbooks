@@ -12,6 +12,8 @@
 #
 
 resource_name :cpe_firewall
+provides :cpe_firewall, :os => 'darwin'
+
 default_action :run
 
 # Enforce firewall settings
