@@ -12,7 +12,8 @@
 #
 
 resource_name :cpe_ard
-provides :cpe_ard, :platform => 'mac_os_x'
+provides :cpe_ard, :os => 'darwin'
+
 default_action :manage
 
 action :manage do

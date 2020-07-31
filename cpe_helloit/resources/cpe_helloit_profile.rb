@@ -12,6 +12,8 @@
 #
 
 resource_name :cpe_helloit_profile
+provides :cpe_helloit_profile, :os => 'darwin'
+
 default_action :config
 
 # Enforce HelloIT settings

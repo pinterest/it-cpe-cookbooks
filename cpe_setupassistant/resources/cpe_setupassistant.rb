@@ -12,6 +12,8 @@
 #
 
 resource_name :cpe_setupassistant
+provides :cpe_setupassistant, :os => 'darwin'
+
 default_action :run
 
 action :run do

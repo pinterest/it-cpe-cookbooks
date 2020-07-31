@@ -12,6 +12,8 @@
 #
 
 resource_name :cpe_applicationaccess
+provides :cpe_applicationaccess, :os => 'darwin'
+
 default_action :run
 
 action :run do

@@ -12,6 +12,8 @@
 #
 
 resource_name :cpe_globalpreferences
+provides :cpe_globalpreferences, :os => 'darwin'
+
 default_action :run
 
 action :run do
