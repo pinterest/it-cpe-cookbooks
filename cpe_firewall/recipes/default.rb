@@ -11,6 +11,12 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return unless node.macos? || node.windows?
+return unless node.windows? || node['platform'] == 'macos' || node['platform'] == 'mac_os_x'
 
-include_recipe "cpe_firewall::#{node['platform']}"
+if node.windows?
+  include_recipe 'cpe_firewall::windows'
+elsif node['platform'] == 'macos' || node['platform'] == 'mac_os_x'
+  include_recipe 'cpe_firewall::mac_os_x'
+else
+  Chef::Log.warn('cpe_firewall called on incompatible platform.')
+end
