@@ -31,7 +31,8 @@ action_class do
     node['cpe_crypt']['uninstall']
   end
 
-  def forget_crypt_pkg # Forget the crypt2 package receipt
+  # Forget the crypt2 package receipt
+  def forget_crypt_pkg 
     pkg = node['cpe_crypt']['pkg']
     execute "/usr/sbin/pkgutil --forget #{pkg['receipt']}" do
       not_if do
