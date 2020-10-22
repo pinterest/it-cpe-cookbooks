@@ -28,7 +28,7 @@ action :config do
   end
 
   prefix = node['cpe_profiles']['prefix']
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/UnneededCondition
   hit_profile = {
     'PayloadIdentifier' => "#{prefix}.helloit",
     'PayloadRemovalDisallowed' => true,
