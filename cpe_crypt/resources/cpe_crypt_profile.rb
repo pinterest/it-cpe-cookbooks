@@ -27,7 +27,7 @@ action :config do
   end
 
   prefix = node['cpe_profiles']['prefix']
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/UnneededCondition
   crypt_profile = {
     'PayloadIdentifier' => "#{prefix}.crypt",
     'PayloadRemovalDisallowed' => true,
