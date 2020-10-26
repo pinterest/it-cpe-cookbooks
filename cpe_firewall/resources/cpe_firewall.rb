@@ -24,7 +24,7 @@ action :run do
     return
   end
   prefix = node['cpe_profiles']['prefix']
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/UnneededCondition
   fw_profile = {
     'PayloadIdentifier' => "#{prefix}.firewallpolicy",
     'PayloadRemovalDisallowed' => true,

@@ -24,7 +24,7 @@ action :run do
   end
 
   prefix = node['cpe_profiles']['prefix']
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/UnneededCondition
   gp_profile = {
     'PayloadIdentifier' => "#{prefix}.globalpreferences",
     'PayloadRemovalDisallowed' => true,

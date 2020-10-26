@@ -26,7 +26,7 @@ action :run do
     return
   end
 
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/UnneededCondition
   prefix = node['cpe_profiles']['prefix']
   su_profile = {
     'PayloadIdentifier' => "#{prefix}.softwareupdate",

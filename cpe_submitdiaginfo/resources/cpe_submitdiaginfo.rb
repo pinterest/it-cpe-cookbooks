@@ -25,7 +25,7 @@ action :run do
   end
 
   prefix = node['cpe_profiles']['prefix']
-  organization = node['organization'] ? node['organization'] : 'Pinterest'
+  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/UnneededCondition
   sd_profile = {
     'PayloadIdentifier' => "#{prefix}.submitdiaginfo",
     'PayloadRemovalDisallowed' => true,

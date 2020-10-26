@@ -24,7 +24,7 @@ action :run do
     return
   end
 
-  organization = node['organization'] ? node['organization'] : 'GitHub'
+  organization = node['organization'] ? node['organization'] : 'GitHub' # rubocop:disable Style/UnneededCondition
   prefix = node['cpe_profiles']['prefix']
   aa_profile = {
     'PayloadIdentifier' => "#{prefix}.applicationaccess",
