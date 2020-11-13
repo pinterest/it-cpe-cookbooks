@@ -17,7 +17,7 @@ default_action :run
 mcx_prefs = {}
 
 action :run do
-  mcx_prefs = node['cpe_mcx'].reject { |_k, v| v.nil? }
+  mcx_prefs = node['cpe_mcx'].compact
   return if mcx_prefs.empty?
   organization = node['organization'] ? node['organization'] : 'Pinterest'
   prefix = node['cpe_profiles']['prefix']

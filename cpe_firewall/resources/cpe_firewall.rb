@@ -18,7 +18,7 @@ default_action :run
 
 # Enforce firewall settings
 action :run do
-  fw_prefs = node['cpe_firewall'].reject { |_k, v| v.nil? }
+  fw_prefs = node['cpe_firewall'].compact
   if fw_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

@@ -21,7 +21,7 @@ action :config do
   return unless node['cpe_helloit']['install']
   return unless node['cpe_helloit']['profile']
 
-  hit_prefs = node['cpe_helloit']['prefs'].reject { |_k, v| v.nil? }
+  hit_prefs = node['cpe_helloit']['prefs'].compact
   if hit_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

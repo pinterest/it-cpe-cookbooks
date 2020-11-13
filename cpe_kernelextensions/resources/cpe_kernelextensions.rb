@@ -15,7 +15,7 @@ resource_name :cpe_kernelextensions
 default_action :run
 
 action :run do
-  ke_prefs = node['cpe_kernelextensions'].reject { |_k, v| v.nil? }
+  ke_prefs = node['cpe_kernelextensions'].compact
   if ke_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

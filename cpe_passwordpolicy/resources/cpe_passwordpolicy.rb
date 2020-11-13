@@ -16,7 +16,7 @@ default_action :run
 
 # Enforce password policy and screensaver settings
 action :run do
-  pp_prefs = node['cpe_passwordpolicy'].reject { |_k, v| v.nil? }
+  pp_prefs = node['cpe_passwordpolicy'].compact
   if pp_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

@@ -18,7 +18,7 @@ default_action :run
 
 # Enforce Submit Diag Info settings
 action :run do
-  sd_prefs = node['cpe_submitdiaginfo'].reject { |_k, v| v.nil? }
+  sd_prefs = node['cpe_submitdiaginfo'].compact
   if sd_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

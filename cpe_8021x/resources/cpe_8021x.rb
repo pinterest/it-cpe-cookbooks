@@ -16,9 +16,9 @@ default_action :run
 
 # Enforce 802.1x Settings
 action :run do
-  ethernet_prefs = node['cpe_8021x']['ethernet'].reject { |_k, v| v.nil? }
-  wifi_prefs = node['cpe_8021x']['wifi'].reject { |_k, v| v.nil? }
-  debug_prefs = node['cpe_8021x']['debug'].reject { |_k, v| v.nil? }
+  ethernet_prefs = node['cpe_8021x']['ethernet'].compact
+  wifi_prefs = node['cpe_8021x']['wifi'].compact
+  debug_prefs = node['cpe_8021x']['debug'].compact
   if ethernet_prefs.empty? && wifi_prefs.empty? && debug_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

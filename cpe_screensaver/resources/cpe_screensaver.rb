@@ -16,7 +16,7 @@ default_action :run
 
 # Enforce screen saver settings
 action :run do
-  ss_prefs = node['cpe_screensaver'].reject { |_k, v| v.nil? }
+  ss_prefs = node['cpe_screensaver'].compact
   if ss_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

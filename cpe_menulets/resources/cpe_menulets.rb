@@ -15,7 +15,7 @@ resource_name :cpe_menulets
 default_action :run
 
 action :run do
-  ml_prefs = node['cpe_menulets'].reject { |_k, v| v.nil? }
+  ml_prefs = node['cpe_menulets'].compact
   if ml_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

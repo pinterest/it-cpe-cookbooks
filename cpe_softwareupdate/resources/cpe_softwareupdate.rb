@@ -18,9 +18,9 @@ default_action :run
 
 # Enforce SoftwareUpdate settings
 action :run do
-  susu_prefs = node['cpe_softwareupdate']['su'].reject { |_k, v| v.nil? }
-  suc_prefs = node['cpe_softwareupdate']['commerce'].reject { |_k, v| v.nil? }
-  sta_prefs = node['cpe_softwareupdate']['stagent'].reject { |_k, v| v.nil? }
+  susu_prefs = node['cpe_softwareupdate']['su'].compact
+  suc_prefs = node['cpe_softwareupdate']['commerce'].compact
+  sta_prefs = node['cpe_softwareupdate']['stagent'].compact
   if susu_prefs.empty? && suc_prefs.empty? && sta_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

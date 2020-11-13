@@ -15,7 +15,7 @@ resource_name :cpe_loginwindow
 default_action :run
 
 action :run do
-  lw_prefs = node['cpe_loginwindow'].reject { |_k, v| v.nil? }
+  lw_prefs = node['cpe_loginwindow'].compact
   if lw_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return
