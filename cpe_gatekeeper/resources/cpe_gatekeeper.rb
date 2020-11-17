@@ -15,8 +15,8 @@ resource_name :cpe_gatekeeper
 default_action :run
 
 action :run do
-  gk_prefs = node['cpe_gatekeeper']['control'].reject { |_k, v| v.nil? }
-  gkm_prefs = node['cpe_gatekeeper']['managed'].reject { |_k, v| v.nil? }
+  gk_prefs = node['cpe_gatekeeper']['control'].compact
+  gkm_prefs = node['cpe_gatekeeper']['managed'].compact
   if gk_prefs.empty? && gkm_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

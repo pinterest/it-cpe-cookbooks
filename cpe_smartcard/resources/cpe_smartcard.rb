@@ -16,7 +16,7 @@ default_action :run
 
 # Enforce Smart Card settings
 action :run do
-  sc_prefs = node['cpe_smartcard'].reject { |_k, v| v.nil? }
+  sc_prefs = node['cpe_smartcard'].compact
   if sc_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

@@ -16,7 +16,7 @@ default_action :run
 
 # Enforce preference security settings
 action :run do
-  ps_prefs = node['cpe_preferencesecurity'].reject { |_k, v| v.nil? }
+  ps_prefs = node['cpe_preferencesecurity'].compact
   prefix = node['cpe_profiles']['prefix']
   organization = node['organization'] ? node['organization'] : 'Pinterest'
   ps_profile = {

@@ -16,8 +16,8 @@ default_action :run
 
 # Enforce Time Machine settings
 action :run do
-  tm_mcx_prefs = node['cpe_timemachine']['mcx'].reject { |_k, v| v.nil? }
-  tm_std_prefs = node['cpe_timemachine']['std'].reject { |_k, v| v.nil? }
+  tm_mcx_prefs = node['cpe_timemachine']['mcx'].compact
+  tm_std_prefs = node['cpe_timemachine']['std'].compact
   if tm_mcx_prefs.empty? && tm_std_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

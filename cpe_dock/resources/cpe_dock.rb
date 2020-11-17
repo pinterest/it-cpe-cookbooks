@@ -15,7 +15,7 @@ resource_name :cpe_dock
 default_action :run
 
 action :run do
-  dock_prefs = node['cpe_dock'].reject { |_k, v| v.nil? }
+  dock_prefs = node['cpe_dock'].compact
   if dock_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

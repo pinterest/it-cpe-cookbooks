@@ -23,7 +23,7 @@ end
 
 action_class do # rubocop:disable Metrics/BlockLength
   def manage_profile
-    ard_prefs = node['cpe_ard']['profile']['prefs'].reject { |_k, v| v.nil? }
+    ard_prefs = node['cpe_ard']['profile']['prefs'].compact
     if ard_prefs.empty?
       Chef::Log.info("#{cookbook_name}: No prefs found - skipping profile "\
         'enforcement')

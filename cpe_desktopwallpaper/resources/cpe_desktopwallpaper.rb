@@ -17,7 +17,7 @@ default_action :run
 dw_prefs = {}
 
 action :run do
-  dw_prefs = node['cpe_desktopwallpaper'].reject { |_k, v| v.nil? }
+  dw_prefs = node['cpe_desktopwallpaper'].compact
   return if dw_prefs.empty?
   organization = node['organization'] ? node['organization'] : 'Pinterest'
   prefix = node['cpe_profiles']['prefix']

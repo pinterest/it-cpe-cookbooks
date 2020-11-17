@@ -17,8 +17,8 @@ provides :cpe_applicationaccess, :os => 'darwin'
 default_action :run
 
 action :run do
-  aa_prefs = node['cpe_applicationaccess']['features'].reject { |_k, v| v.nil? }
-  aan_prefs = node['cpe_applicationaccess']['lists'].reject { |_k, v| v.nil? }
+  aa_prefs = node['cpe_applicationaccess']['features'].compact
+  aan_prefs = node['cpe_applicationaccess']['lists'].compact
   if aa_prefs.empty? && aan_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

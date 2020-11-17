@@ -17,7 +17,7 @@ provides :cpe_globalpreferences, :os => 'darwin'
 default_action :run
 
 action :run do
-  gp_prefs = node['cpe_globalpreferences'].reject { |_k, v| v.nil? }
+  gp_prefs = node['cpe_globalpreferences'].compact
   if gp_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return

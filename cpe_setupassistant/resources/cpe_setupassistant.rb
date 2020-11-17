@@ -17,8 +17,8 @@ provides :cpe_setupassistant, :os => 'darwin'
 default_action :run
 
 action :run do
-  saonce_prefs = node['cpe_setupassistant']['once'].reject { |_k, v| v.nil? }
-  sam_prefs = node['cpe_setupassistant']['managed'].reject { |_k, v| v.nil? }
+  saonce_prefs = node['cpe_setupassistant']['once'].compact
+  sam_prefs = node['cpe_setupassistant']['managed'].compact
   if saonce_prefs.empty? && sam_prefs.empty?
     Chef::Log.info("#{cookbook_name}: No prefs found.")
     return
