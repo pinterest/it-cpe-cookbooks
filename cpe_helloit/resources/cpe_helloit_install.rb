@@ -22,7 +22,7 @@ action :manage do
   remove if uninstall?
 end
 
-action_class do # rubocop:disable Metrics/BlockLength
+action_class do
   def install?
     node['cpe_helloit']['install']
   end
