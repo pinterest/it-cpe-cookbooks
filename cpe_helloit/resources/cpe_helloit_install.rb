@@ -22,7 +22,7 @@ action :manage do
   remove if uninstall?
 end
 
-action_class do
+action_class do # rubocop:disable Metrics/BlockLength
   def install?
     node['cpe_helloit']['install']
   end
@@ -31,8 +31,8 @@ action_class do
     node['cpe_helloit']['uninstall']
   end
 
-   # Forget the helloit package receipt
-  def forget_helloit_pkg 
+  # Forget the helloit package receipt
+  def forget_helloit_pkg
     pkg = node['cpe_helloit']['pkg']
     execute "/usr/sbin/pkgutil --forget #{pkg['receipt']}" do
       not_if do
