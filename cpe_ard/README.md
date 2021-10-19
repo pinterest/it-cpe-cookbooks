@@ -5,10 +5,10 @@ Install a profile to manage Apple Remote Desktop Application settings.
 This cookbook depends on the following cookbooks
 
 * cpe_profiles
-* cpe_utils
-* uber_helpers
+* cpe_helpers
+* fb_helpers
 
-These cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository and Uber in the [cpe-chef-cookbooks](https://github.com/uber/cpe-chef-cookbooks) repository.
+These cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository.
 
 Requirements
 ------------
