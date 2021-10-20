@@ -7,8 +7,9 @@ This cookbook depends on the following cookbooks
 * cpe_profiles
 * cpe_helpers
 * fb_helpers
+* uber_helpers
 
-These cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository.
+These cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository and Uber in the [cpe-chef-cookbooks](https://github.com/uber/cpe-chef-cookbooks) repository.
 
 Requirements
 ------------
