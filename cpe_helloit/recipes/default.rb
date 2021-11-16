@@ -11,7 +11,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return unless node.macos?
+return unless macos?
 
 cpe_helloit_install 'Install Hello-IT package'
 cpe_helloit_profile 'Apply Hello-IT profile'

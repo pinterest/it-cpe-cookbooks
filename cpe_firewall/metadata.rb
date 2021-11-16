@@ -11,4 +11,3 @@ supports 'mac_os_x'
 supports 'windows'
 
 depends 'cpe_profiles'
-depends 'cpe_utils'

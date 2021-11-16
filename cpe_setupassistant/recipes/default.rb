@@ -11,6 +11,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return unless node.macos?
+return unless macos?
 
 cpe_setupassistant 'Apply Preference Pane Management'

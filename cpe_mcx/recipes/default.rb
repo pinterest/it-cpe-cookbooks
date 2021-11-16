@@ -12,6 +12,6 @@
 # of patent rights can be found in the PATENTS file in the same directory.
 #
 
-return unless node.macos?
+return unless macos?
 
 cpe_mcx 'Apply MC X profile'
