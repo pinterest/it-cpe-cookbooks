@@ -11,6 +11,6 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return unless node.macos?
+return unless macos?
 
 cpe_8021x 'Apply 802.1x profile'

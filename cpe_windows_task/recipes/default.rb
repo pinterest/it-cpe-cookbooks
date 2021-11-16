@@ -11,7 +11,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return unless node.windows?
+return unless windows?
 
 cpe_windows_task 'Managing Windows tasks'
 

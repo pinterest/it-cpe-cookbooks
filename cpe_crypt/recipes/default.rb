@@ -11,7 +11,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
-return unless node.macos?
+return unless macos?
 
 cpe_crypt_install 'Install Crypt package'
 cpe_crypt_profile 'Apply Crypt profile'
