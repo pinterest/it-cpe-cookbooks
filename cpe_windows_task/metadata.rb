@@ -7,5 +7,3 @@ license 'BSD'
 description 'Installs/Configures cpe_windows_task'
 version '0.1.0'
 supports 'windows'
-
-depends 'cpe_utils'

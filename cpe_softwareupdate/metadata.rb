@@ -10,4 +10,3 @@ chef_version '>= 14.14' if respond_to?(:chef_version)
 supports 'mac_os_x'
 
 depends 'cpe_profiles'
-depends 'cpe_utils'
