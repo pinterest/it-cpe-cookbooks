@@ -13,6 +13,7 @@
 
 resource_name :cpe_gatekeeper
 default_action :run
+unified_mode true
 
 action :run do
   gk_prefs = node['cpe_gatekeeper']['control'].compact
