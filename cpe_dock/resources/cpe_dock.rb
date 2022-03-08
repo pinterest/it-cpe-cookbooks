@@ -13,6 +13,7 @@
 
 resource_name :cpe_dock
 default_action :run
+unified_mode true
 
 action :run do
   dock_prefs = node['cpe_dock'].compact

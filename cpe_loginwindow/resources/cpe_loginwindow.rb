@@ -13,6 +13,7 @@
 
 resource_name :cpe_loginwindow
 default_action :run
+unified_mode true
 
 action :run do
   lw_prefs = node['cpe_loginwindow'].compact

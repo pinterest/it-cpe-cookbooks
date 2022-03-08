@@ -13,6 +13,7 @@
 
 resource_name :cpe_timemachine
 default_action :run
+unified_mode true
 
 # Enforce Time Machine settings
 action :run do

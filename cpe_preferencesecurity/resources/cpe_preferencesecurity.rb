@@ -13,6 +13,7 @@
 
 resource_name :cpe_preferencesecurity
 default_action :run
+unified_mode true
 
 # Enforce preference security settings
 action :run do

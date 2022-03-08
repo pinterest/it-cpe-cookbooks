@@ -13,6 +13,7 @@
 
 resource_name :cpe_mcx
 default_action :run
+unified_mode true
 
 mcx_prefs = {}
 
