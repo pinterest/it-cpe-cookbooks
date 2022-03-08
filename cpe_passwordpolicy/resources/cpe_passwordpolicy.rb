@@ -13,6 +13,7 @@
 
 resource_name :cpe_passwordpolicy
 default_action :run
+unified_mode true
 
 # Enforce password policy and screensaver settings
 action :run do
