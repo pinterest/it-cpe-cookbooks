@@ -7,7 +7,6 @@ Requirements
 This cookbook requires Chef 14 and higher to run and depends on the following cookbooks:
 
 * cpe_profiles
-* cpe_utils
 
 These cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository.
 
