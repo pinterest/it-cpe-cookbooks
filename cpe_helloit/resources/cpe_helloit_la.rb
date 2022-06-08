@@ -21,6 +21,11 @@ action :manage do
   return unless node['cpe_helloit']['install']
   return unless node['cpe_helloit']['manage_la']
 
+  base_label = 'com.github.ygini.hello-it'
+
+  launchagent_label = node.cpe_launchd_label(base_label)
+  launchagent_path = node.cpe_launchd_path('agent', base_label)
+
   # Manage Hello-IT's default scripts and custom folders
   # Create the main directory first
   directory '/Library/Application Support/com.github.ygini.hello-it' do
@@ -46,10 +51,17 @@ action :manage do
       path "/Library/Application Support/com.github.ygini.hello-it/#{item}"
       purge true
       action :create
+      notifies :disable, "launchd[#{launchagent_label}]", :immediately if ::File.exists?(launchagent_path)
     end
   end
 
+  # Triggered Launch Agent action
+  launchd launchagent_label do
+    action :nothing
+    type 'agent'
+  end
+
   # Launch Agent
-  node.default['cpe_launchd']['com.github.ygini.hello-it'] =
+  node.default['cpe_launchd'][base_label] =
     node.default['cpe_helloit']['la']
 end

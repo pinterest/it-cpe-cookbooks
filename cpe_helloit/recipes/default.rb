@@ -14,5 +14,9 @@
 return unless macos?
 
 cpe_helloit_install 'Install Hello-IT package'
-cpe_helloit_profile 'Apply Hello-IT profile'
+if node.os_at_least_or_lower?('10.15.99')
+  cpe_helloit_profile 'Apply Hello-IT profile'
+else
+  cpe_helloit_defaults 'Apply Hello-IT defaults'
+end
 cpe_helloit_la 'Manage Hello-IT LaunchAgent'
