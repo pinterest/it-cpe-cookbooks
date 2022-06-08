@@ -20,7 +20,7 @@ default_action :config
 # Enforce HelloIT settings
 action :config do
   return unless node['cpe_helloit']['install']
-  return unless node['cpe_helloit']['profile']
+  return unless node['cpe_helloit']['config']
 
   hit_prefs = node['cpe_helloit']['prefs'].compact
   if hit_prefs.empty?
@@ -29,7 +29,7 @@ action :config do
   end
 
   prefix = node['cpe_profiles']['prefix']
-  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/UnneededCondition
+  organization = node['organization'] ? node['organization'] : 'Pinterest' # rubocop:disable Style/RedundantCondition
   hit_profile = {
     'PayloadIdentifier' => "#{prefix}.helloit",
     'PayloadRemovalDisallowed' => true,
@@ -52,6 +52,7 @@ action :config do
     )
     hit_prefs.each_key do |key|
       next if hit_prefs[key].nil?
+
       hit_profile['PayloadContent'][0][key] = hit_prefs[key]
     end
   end

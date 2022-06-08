@@ -14,7 +14,7 @@
 default['cpe_helloit'] = {
   'install' => false,
   'uninstall' => false,
-  'profile' => true,
+  'config' => true,
   'manage_la' => true,
   'la' => {
     'keep_alive' => true,
@@ -30,9 +30,9 @@ default['cpe_helloit'] = {
   'pkg' => {
     'name' => 'helloit',
     'checksum' =>
-      '73d71d960218897a2b29636a171667939ff886c215a73174165f478b218ebe04',
+      '3481810cc0a39ab1820c60e68bc89bee62790ec99a833cf11204c6748bfeeada',
     'receipt' => 'com.github.ygini.hello-it',
-    'version' => '1.3.2',
+    'version' => '1.6.0',
     'pkg_name' => nil,
     'pkg_url' => nil,
   },

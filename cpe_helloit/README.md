@@ -11,7 +11,7 @@ Attributes
 * node['cpe_helloit']
 * node['cpe_helloit']['install']
 * node['cpe_helloit']['uninstall']
-* node['cpe_helloit']['profile']
+* node['cpe_helloit']['config']
 * node['cpe_helloit']['manage_la']
 * node['cpe_helloit']['pkgs']
 * node['cpe_helloit']['prefs']
@@ -29,8 +29,9 @@ This cookbook depends on the following cookbooks
 * cpe_launchd
 * cpe_profiles
 * cpe_remote
+* uber_helpers
 
-The cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository.
+The cookbooks are offered by Facebook in the [IT-CPE](https://github.com/facebook/IT-CPE) repository and Uber in the [client-platform-engineering](https://github.com/uber/client-platform-engineering) repository.
 
 Usage
 -----
