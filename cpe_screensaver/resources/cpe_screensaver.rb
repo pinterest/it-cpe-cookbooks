@@ -12,6 +12,7 @@
 #
 unified_mode true
 
+provides :cpe_screensaver
 resource_name :cpe_screensaver
 default_action :run
 

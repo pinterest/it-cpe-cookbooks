@@ -11,6 +11,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+provides :cpe_dock
 resource_name :cpe_dock
 default_action :run
 unified_mode true

@@ -11,6 +11,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+provides :cpe_gatekeeper
 resource_name :cpe_gatekeeper
 default_action :run
 unified_mode true
